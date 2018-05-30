@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using AuthPostMVC.Models;
 using AuthPostMVC.Repository;
 using Microsoft.AspNetCore.Authorization;
-// test commit
+
 namespace AuthPostMVC.Controllers
 {
     public class CustomerController : Controller
