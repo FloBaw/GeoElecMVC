@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using AuthPostMVC.Models;
+using GeoElecMVC.Models;
 
-namespace AuthPostMVC.AdminUserRoles
+namespace GeoElecMVC.AdminUserRoles
 {
     public interface IAdminUserRoles<T>
     {

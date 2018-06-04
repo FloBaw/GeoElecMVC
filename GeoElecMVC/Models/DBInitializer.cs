@@ -1,4 +1,4 @@
-﻿using AuthPostMVC.Data;
+﻿using GeoElecMVC.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AuthPostMVC.Models
+namespace GeoElecMVC.Models
 {
     public class DBInitializer
     {

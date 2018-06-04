@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AuthPostMVC.Data;
-using AuthPostMVC.Models;
-using AuthPostMVC.Services;
+using GeoElecMVC.Data;
+using GeoElecMVC.Models;
+using GeoElecMVC.Services;
 
-namespace AuthPostMVC
+namespace GeoElecMVC
 {
     public class Startup
     {

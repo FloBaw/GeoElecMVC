@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AuthPostMVC.Models.AccountViewModels
+namespace GeoElecMVC.Models.AccountViewModels
 {
     public class ForgotPasswordViewModel
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using AuthPostMVC.Models;
+using GeoElecMVC.Models;
 
-namespace AuthPostMVC.Data
+namespace GeoElecMVC.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

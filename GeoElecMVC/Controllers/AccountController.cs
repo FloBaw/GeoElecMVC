@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using AuthPostMVC.Models;
-using AuthPostMVC.Models.AccountViewModels;
-using AuthPostMVC.Services;
+using GeoElecMVC.Models;
+using GeoElecMVC.Models.AccountViewModels;
+using GeoElecMVC.Services;
 
-namespace AuthPostMVC.Controllers
+namespace GeoElecMVC.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]

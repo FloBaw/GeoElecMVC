@@ -8,10 +8,10 @@ using Dapper;
 using System.Data;
 using Npgsql;
 
-using AuthPostMVC.Models;
+using GeoElecMVC.Models;
 
 
-namespace AuthPostMVC.Repository
+namespace GeoElecMVC.Repository
 {
     public class CustomerRepository : IRepository<Customer>
     {

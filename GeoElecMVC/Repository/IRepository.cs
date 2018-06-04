@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using AuthPostMVC.Models;
+using GeoElecMVC.Models;
 
-namespace AuthPostMVC.Repository
+namespace GeoElecMVC.Repository
 {
     public interface IRepository<T>
     {

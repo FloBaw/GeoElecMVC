@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-using AuthPostMVC.Models;
-using AuthPostMVC.Repository;
+using GeoElecMVC.Models;
+using GeoElecMVC.Repository;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AuthPostMVC.Controllers
+namespace GeoElecMVC.Controllers
 {
     public class CustomerController : Controller
     {

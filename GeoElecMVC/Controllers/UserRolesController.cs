@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 
-using AuthPostMVC.Models;
-using AuthPostMVC.AdminUserRoles;
+using GeoElecMVC.Models;
+using GeoElecMVC.AdminUserRoles;
 
-namespace AuthPostMVC.Controllers
+namespace GeoElecMVC.Controllers
 {
     public class UserRolesController : Controller
     {

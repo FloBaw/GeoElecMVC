@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using AuthPostMVC.Data;
-using AuthPostMVC.Models;
+using GeoElecMVC.Data;
+using GeoElecMVC.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace AuthPostMVC
+namespace GeoElecMVC
 {
     public class Program
     {

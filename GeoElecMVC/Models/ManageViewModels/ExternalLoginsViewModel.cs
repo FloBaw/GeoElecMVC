@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace AuthPostMVC.Models.ManageViewModels
+namespace GeoElecMVC.Models.ManageViewModels
 {
     public class ExternalLoginsViewModel
     {

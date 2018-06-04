@@ -8,9 +8,9 @@ using Dapper;
 using System.Data;
 using Npgsql;
 
-using AuthPostMVC.Models;
+using GeoElecMVC.Models;
 
-namespace AuthPostMVC.AdminUserRoles
+namespace GeoElecMVC.AdminUserRoles
 {
     public class ManageAdminUserRoles : IAdminUserRoles<UserRoles>
     {

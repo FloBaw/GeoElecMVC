@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AuthPostMVC.Data.Migrations
+namespace GeoElecMVC.Data.Migrations
 {
     public partial class second : Migration
     {

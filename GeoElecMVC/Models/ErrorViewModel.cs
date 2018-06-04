@@ -1,6 +1,6 @@
 using System;
 
-namespace AuthPostMVC.Models
+namespace GeoElecMVC.Models
 {
     public class ErrorViewModel
     {

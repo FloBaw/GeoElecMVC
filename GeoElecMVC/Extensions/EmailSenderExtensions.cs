@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using AuthPostMVC.Services;
+using GeoElecMVC.Services;
 
-namespace AuthPostMVC.Services
+namespace GeoElecMVC.Services
 {
     public static class EmailSenderExtensions
     {
