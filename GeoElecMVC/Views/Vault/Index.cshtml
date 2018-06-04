@@ -7,34 +7,127 @@
 @model IEnumerable<GeoElecMVC.Models.Vault>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "GeoElec Vault Generator Frame";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.log_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.log_timestamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.log_date)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.generator_id)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.nrj_tot)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.power_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.power_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.power_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.current_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.current_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.current_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.voltage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.relay_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.relay_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.magnetic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.payment)
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.generator_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nrj_tot)
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.log_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.log_timestamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.log_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.generator_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nrj_tot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.power_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.power_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.power_3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.current_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.current_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.current_3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.voltage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.relay_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.relay_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.magnetic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.latitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.longitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.payment)
+        </td>
+    </tr>
     }
 </table>

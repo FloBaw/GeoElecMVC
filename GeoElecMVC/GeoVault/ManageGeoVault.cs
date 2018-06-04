@@ -33,7 +33,10 @@ namespace GeoElecMVC.GeoVault
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Vault>("SELECT * FROM olidata_frame_generator");
+                return dbConnection.Query<Vault>("SELECT * FROM olidata_frame_generator order by log_date desc");
+                //return dbConnection.Query<Vault>("SELECT * FROM olidata_frame_generator order by log_date asc");
+                //return dbConnection.Query<Vault>("SELECT * FROM olidata_frame_generator order by log_id");
+                //return dbConnection.Query<Vault>("SELECT * FROM olidata_frame_generator");
             }
         }
     }
