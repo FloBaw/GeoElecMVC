@@ -20,11 +20,35 @@ namespace GeoElecMVC.Controllers
         {
             manageGeoVault = new ManageGeoVault(configuration);
         }
-
+        /*
         //[Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View(manageGeoVault.FindAll());
+        }
+        */
+        /*public async Task<IActionResult> Index(string searchString)
+        {
+            var testvault = from m in manageGeoVault.FindAll() select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                testvault = testvault.Where(s => s.generator_id.Equals(searchString));
+            }
+
+            return View(testvault.ToList());
+        }
+        */
+        public IActionResult Index(string searchString)
+        {
+            var testvault = from m in manageGeoVault.FindAll() select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                testvault = testvault.Where(s => s.generator_id.Equals(searchString));
+            }
+
+            return View(testvault.ToList());
         }
     }
 }
