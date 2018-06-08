@@ -41,11 +41,14 @@ namespace GeoElecMVC.Controllers
         */
         public IActionResult Index(string searchString)
         {
-            var testvault = from m in manageGeoVault.FindAll() select m;
+            //var testvault = from m in manageGeoVault.FindAll() select m;
+            var testvault = manageGeoVault.FindAll();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                testvault = testvault.Where(s => s.generator_id.Equals(searchString));
+                //testvault = testvault.Where(s => s.generator_id.Equals(searchString));
+                //testvault = testvault.Where(s => s.generator_id.Contains(searchString));
+                testvault = testvault.Where(s => s.generator_id.StartsWith(searchString));
             }
 
             return View(testvault.ToList());

@@ -18,14 +18,14 @@
         <input type="submit" value="Filter" />
     </p>
 </form>
-
+@*
 <form asp-controller="Vault" asp-action="Index" method="get">
     <p>
         <input type="date" name="date_start">
         <input type="submit" value="Filter" />
     </p>
 </form>
-
+*@
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -130,7 +130,10 @@
                 @Html.DisplayFor(modelItem => item.log_timestamp)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.log_date)
+                @Html.Raw(item.log_date.Date.ToString("dd/MM/yy"))
+                <!-- @Html.Raw(item.log_date.Date.ToString("dd MMM yyyy")) -->
+                <!-- @Html.Raw(item.log_date.Date.ToString("dd MMMM yyyy")) -->
+                <!-- @Html.DisplayFor(modelItem => item.log_date) -->
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.generator_id)
