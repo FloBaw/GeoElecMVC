@@ -12,12 +12,6 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-controller="Vault" asp-action="Index" method="get">
-    <p>
-        Generator Id : <input type="text" name="SearchString">
-        <input type="submit" value="Filter" />
-    </p>
-</form>
 @*
 <form asp-controller="Vault" asp-action="Index" method="get">
     <p>
@@ -32,11 +26,16 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-
 <form asp-controller="Vault" asp-action="Index" method="get">
     <p>
-        <input class="form-control" type="text" data-toggle="daterangepicker" maxlength="23" name="timestamp" data-filter-type="date-range">
+        Generator Id : <input type="text" name="SearchString">
         <input type="submit" value="Filter" />
+    </p>
+    <p>
+        Range : <input type="text" data-toggle="daterangepicker" maxlength="23" name="timestamp" data-filter-type="date-range">
+        <!--class="form-control"-->
+        All dates <input name="checkDate" value="true" type="checkbox" />
+        <!--checked="checked" to valid the checkbox-->
     </p>
 </form>
 

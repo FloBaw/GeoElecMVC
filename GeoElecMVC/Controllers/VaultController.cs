@@ -39,7 +39,7 @@ namespace GeoElecMVC.Controllers
             return View(testvault.ToList());
         }
         */
-        public IActionResult Index(string searchString)
+        public IActionResult Index(string searchString, string timestamp, string checkDate)
         {
             //var testvault = from m in manageGeoVault.FindAll() select m;
             var testvault = manageGeoVault.FindAll();
@@ -49,6 +49,20 @@ namespace GeoElecMVC.Controllers
                 //testvault = testvault.Where(s => s.generator_id.Equals(searchString));
                 //testvault = testvault.Where(s => s.generator_id.Contains(searchString));
                 testvault = testvault.Where(s => s.generator_id.StartsWith(searchString));
+            }
+
+
+            if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate))
+            {
+                
+                string[] splitDate = timestamp.Split('-');
+                string dateBegin = splitDate[0];
+                string dateEnd = splitDate[1];
+                DateTime parsedDateBegin = DateTime.Parse(dateBegin);
+                DateTime parsedDateEnd = DateTime.Parse(dateEnd);
+
+                testvault = testvault.Where(x => x.log_date.Date <= parsedDateEnd);
+                testvault = testvault.Where(y => y.log_date.Date >= parsedDateBegin);
             }
 
             return View(testvault.ToList());
