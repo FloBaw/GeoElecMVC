@@ -39,6 +39,8 @@ namespace GeoElecMVC.Controllers
             return View(testvault.ToList());
         }
         */
+
+        /*
         public IActionResult Index(string searchString, string timestamp, string checkDate)
         {
             //var testvault = from m in manageGeoVault.FindAll() select m;
@@ -66,6 +68,47 @@ namespace GeoElecMVC.Controllers
             }
 
             return View(testvault.ToList());
+        }
+        */
+
+        public IActionResult Index(string searchString, string timestamp, string checkDate)
+        {
+            //var testvault = from m in manageGeoVault.FindAll() select m;
+
+            if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && !String.IsNullOrEmpty(searchString))
+            {
+
+                string[] splitDate = timestamp.Split('-');
+                string dateBegin = splitDate[0];
+                string dateEnd = splitDate[1];
+                DateTime parsedDateBegin = DateTime.Parse(dateBegin);
+                DateTime parsedDateEnd = DateTime.Parse(dateEnd);
+                return View(manageGeoVault.getAllGenFram(searchString, parsedDateBegin, parsedDateEnd));
+            }
+
+            else if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && String.IsNullOrEmpty(searchString))
+            {
+                string[] splitDate = timestamp.Split('-');
+                string dateBegin = splitDate[0];
+                string dateEnd = splitDate[1];
+                DateTime parsedDateBegin = DateTime.Parse(dateBegin);
+                DateTime parsedDateEnd = DateTime.Parse(dateEnd);
+                return View(manageGeoVault.getAllGenFram(parsedDateBegin, parsedDateEnd));
+            }
+
+            else if (!String.IsNullOrEmpty(checkDate))
+            {
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    //testvault = testvault.Where(s => s.generator_id.Equals(searchString));
+                    //testvault = testvault.Where(s => s.generator_id.Contains(searchString));
+                    return View(manageGeoVault.getAllGenFram(searchString));
+                }
+
+                return View(manageGeoVault.FindAll());
+            }
+
+            return View(manageGeoVault.getAllGenFram(DateTime.Now.AddDays(-30), DateTime.Now));
         }
     }
 }
