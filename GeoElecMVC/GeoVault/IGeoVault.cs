@@ -13,6 +13,7 @@ namespace GeoElecMVC.GeoVault
         IEnumerable<T> getAllGenFram(string searchid);
         IEnumerable<T> getAllGenFram(DateTime datebegin, DateTime dateend);
         IEnumerable<T> getAllGenFram(string searchid, DateTime datebegin, DateTime dateend);
+        float getNrjTot(string searchid);
         float getNrjTot(string searchid, DateTime datebegin, DateTime dateend);
     }
 }

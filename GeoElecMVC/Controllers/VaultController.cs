@@ -73,8 +73,9 @@ namespace GeoElecMVC.Controllers
 
         public IActionResult Index(string searchString, string timestamp, string checkDate)
         {
+            ViewData["idGen"] = searchString;
+            ViewData["timestamp"] = timestamp;
             //var testvault = from m in manageGeoVault.FindAll() select m;
-
             if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && !String.IsNullOrEmpty(searchString))
             {
 
@@ -83,6 +84,8 @@ namespace GeoElecMVC.Controllers
                 string dateEnd = splitDate[1];
                 DateTime parsedDateBegin = DateTime.Parse(dateBegin);
                 DateTime parsedDateEnd = DateTime.Parse(dateEnd);
+                
+                ViewData["nrjtot"] = (manageGeoVault.getNrjTot(searchString, parsedDateBegin, parsedDateEnd)).ToString();
                 return View(manageGeoVault.getAllGenFram(searchString, parsedDateBegin, parsedDateEnd));
             }
 
@@ -102,9 +105,9 @@ namespace GeoElecMVC.Controllers
                 {
                     //testvault = testvault.Where(s => s.generator_id.Equals(searchString));
                     //testvault = testvault.Where(s => s.generator_id.Contains(searchString));
+                    ViewData["nrjtot"] = (manageGeoVault.getNrjTot(searchString)).ToString();
                     return View(manageGeoVault.getAllGenFram(searchString));
                 }
-
                 return View(manageGeoVault.FindAll());
             }
 

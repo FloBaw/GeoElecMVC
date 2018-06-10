@@ -13,12 +13,12 @@
 <h2>@ViewData["Title"]</h2>
 
 @*
-<form asp-controller="Vault" asp-action="Index" method="get">
-    <p>
-        <input type="date" name="date_start">
-        <input type="submit" value="Filter" />
-    </p>
-</form>
+    <form asp-controller="Vault" asp-action="Index" method="get">
+        <p>
+            <input type="date" name="date_start">
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
 *@
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -28,11 +28,11 @@
 
 <form asp-controller="Vault" asp-action="Index" method="get">
     <p>
-        Generator Id : <input type="text" name="SearchString">
+        Generator Id : <input type="text" name="SearchString" value="@ViewData["idGen"]">
         <input type="submit" value="Filter" />
     </p>
     <p>
-        Range : <input type="text" data-toggle="daterangepicker" maxlength="23" name="timestamp" data-filter-type="date-range">
+        Range : <input type="text" data-toggle="daterangepicker" maxlength="23" name="timestamp" data-filter-type="date-range" value="@ViewData["timestamp"]">
         <!--class="form-control"-->
         All dates <input name="checkDate" value="true" type="checkbox" />
         <!--checked="checked" to valid the checkbox-->
@@ -40,8 +40,14 @@
 </form>
 
 
+@if ((ViewData["nrjtot"] != null) && !(ViewData["nrjtot"] is "-1"))
+{
+    @Html.Raw("Total energy = ") @ViewData["nrjtot"] @Html.Raw(" kW")
+}
+
+
 <script>
- $('[data-filter-type="date-range"]').daterangepicker({
+    $('[data-filter-type="date-range"]').daterangepicker({
         showDropdowns: true,
         autoUpdateInput: true,
         applyClass: 'btn-sm btn-primary',
@@ -135,6 +141,9 @@
                 <!-- @Html.DisplayFor(modelItem => item.log_date) -->
             </td>
             <td>
+
+
+
                 @Html.DisplayFor(modelItem => item.generator_id)
             </td>
             <td>

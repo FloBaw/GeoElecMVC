@@ -136,20 +136,49 @@ namespace GeoElecMVC.GeoVault
             }
         }
 
-        // En cours
+        public float getNrjTot(string searchid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                try
+                {
+                    return dbConnection.Query<float>("SELECT sum(olidata_frame_generator.nrj_tot) as tot_nrj " +
+                    "FROM oliclient, oligenerator, olidata_frame_generator " +
+                    "WHERE oligenerator.generator_id = olidata_frame_generator.generator_id " +
+                    "and oligenerator.client_id = oliclient.client_id " +
+                    "and oligenerator.generator_id = @generator_id ",
+                    new { generator_id = searchid}).Single();
+                }
+                catch
+                {
+                    return -1;
+                }
+                
+            }
+        }
+
         public float getNrjTot(string searchid, DateTime datebegin, DateTime dateend)
         {
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Execute("SELECT sum(olidata_frame_generator.nrj_tot) as tot_nrj " +
+                try
+                {
+                    return dbConnection.Query<float>("SELECT sum(olidata_frame_generator.nrj_tot) as tot_nrj " +
                     "FROM oliclient, oligenerator, olidata_frame_generator " +
                     "WHERE oligenerator.generator_id = olidata_frame_generator.generator_id " +
                     "and oligenerator.client_id = oliclient.client_id " +
                     "and oligenerator.generator_id = @generator_id " +
                     "and log_date <= @dateEnd " +
                     "and log_date >= @dateBegin",
-                    new { generator_id = searchid, dateBegin = datebegin, dateEnd = dateend });
+                    new { generator_id = searchid, dateBegin = datebegin, dateEnd = dateend }).Single();
+                }
+                catch
+                {
+                    return -1;
+                }
+
             }
         }
     }
