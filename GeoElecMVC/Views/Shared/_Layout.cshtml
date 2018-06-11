@@ -32,10 +32,19 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Customer" asp-action="Index">Customer</a></li>
-                    <li><a asp-area="" asp-controller="UserRoles" asp-action="Index">User Roles</a></li>
-                    <li><a asp-area="" asp-controller="Vault" asp-action="Index">Vault</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                     {
+                        @if (User.IsInRole("Admin") || User.IsInRole("Member"))
+                         {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                         }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li><a asp-area="" asp-controller="Customer" asp-action="Index">Customer</a></li>
+                            <li><a asp-area="" asp-controller="UserRoles" asp-action="Index">User Roles</a></li>
+                            <li><a asp-area="" asp-controller="Vault" asp-action="Index">Vault</a></li>
+                        }
+                     }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
