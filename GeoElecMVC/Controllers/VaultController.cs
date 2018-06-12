@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 using GeoElecMVC.Models;
 using GeoElecMVC.GeoVault;
+using System.Security.Claims;
 
 namespace GeoElecMVC.Controllers
 {
@@ -70,11 +71,14 @@ namespace GeoElecMVC.Controllers
             return View(testvault.ToList());
         }
         */
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Index(string searchString, string timestamp, string checkDate)
         {
             ViewData["idGen"] = searchString;
             ViewData["timestamp"] = timestamp;
+            var ident = User.Identity as ClaimsIdentity;
+            var userId = ident.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            //ViewData["userId"] = userId;
             //var testvault = from m in manageGeoVault.FindAll() select m;
             if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && !String.IsNullOrEmpty(searchString))
             {
@@ -86,7 +90,7 @@ namespace GeoElecMVC.Controllers
                 DateTime parsedDateEnd = DateTime.Parse(dateEnd);
                 
                 ViewData["nrjtot"] = (manageGeoVault.getNrjTot(searchString, parsedDateBegin, parsedDateEnd)).ToString();
-                return View(manageGeoVault.getAllGenFram(searchString, parsedDateBegin, parsedDateEnd));
+                return View(manageGeoVault.FindAllGenFram(searchString, parsedDateBegin, parsedDateEnd));
             }
 
             else if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && String.IsNullOrEmpty(searchString))
@@ -96,7 +100,7 @@ namespace GeoElecMVC.Controllers
                 string dateEnd = splitDate[1];
                 DateTime parsedDateBegin = DateTime.Parse(dateBegin);
                 DateTime parsedDateEnd = DateTime.Parse(dateEnd);
-                return View(manageGeoVault.getAllGenFram(parsedDateBegin, parsedDateEnd));
+                return View(manageGeoVault.FindAllGenFram(parsedDateBegin, parsedDateEnd));
             }
 
             else if (!String.IsNullOrEmpty(checkDate))
@@ -106,12 +110,59 @@ namespace GeoElecMVC.Controllers
                     //testvault = testvault.Where(s => s.generator_id.Equals(searchString));
                     //testvault = testvault.Where(s => s.generator_id.Contains(searchString));
                     ViewData["nrjtot"] = (manageGeoVault.getNrjTot(searchString)).ToString();
-                    return View(manageGeoVault.getAllGenFram(searchString));
+                    return View(manageGeoVault.FindAllGenFram(searchString));
                 }
-                return View(manageGeoVault.FindAll());
+                return View(manageGeoVault.FindAllGenFram());
             }
 
-            return View(manageGeoVault.getAllGenFram(DateTime.Now.AddDays(-30), DateTime.Now));
+            return View(manageGeoVault.FindAllGenFram(DateTime.Now.AddDays(-30), DateTime.Now));
+        }
+
+
+        [Authorize(Roles = "Admin, Member")]
+        public IActionResult IndexMember(string searchString, string timestamp, string checkDate)
+        {
+            ViewData["idGen"] = searchString;
+            ViewData["timestamp"] = timestamp;
+            var ident = User.Identity as ClaimsIdentity;
+            var userId = ident.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            //ViewData["userId"] = userId;
+            if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && !String.IsNullOrEmpty(searchString))
+            {
+
+                string[] splitDate = timestamp.Split('-');
+                string dateBegin = splitDate[0];
+                string dateEnd = splitDate[1];
+                DateTime parsedDateBegin = DateTime.Parse(dateBegin);
+                DateTime parsedDateEnd = DateTime.Parse(dateEnd);
+
+                ViewData["nrjtot"] = (manageGeoVault.getItsNrjTot(userId, searchString, parsedDateBegin, parsedDateEnd)).ToString();
+                return View(manageGeoVault.FindAllItsGenFram(userId, searchString, parsedDateBegin, parsedDateEnd));
+            }
+
+            else if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && String.IsNullOrEmpty(searchString))
+            {
+                string[] splitDate = timestamp.Split('-');
+                string dateBegin = splitDate[0];
+                string dateEnd = splitDate[1];
+                DateTime parsedDateBegin = DateTime.Parse(dateBegin);
+                DateTime parsedDateEnd = DateTime.Parse(dateEnd);
+                return View(manageGeoVault.FindAllItsGenFram(userId, parsedDateBegin, parsedDateEnd));
+            }
+
+            else if (!String.IsNullOrEmpty(checkDate))
+            {
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    //testvault = testvault.Where(s => s.generator_id.Equals(searchString));
+                    //testvault = testvault.Where(s => s.generator_id.Contains(searchString));
+                    ViewData["nrjtot"] = (manageGeoVault.getItsNrjTot(userId, searchString)).ToString();
+                    return View(manageGeoVault.FindAllItsGenFram(userId, searchString));
+                }
+                return View(manageGeoVault.FindAllItsGenFram(userId));
+            }
+
+            return View(manageGeoVault.FindAllItsGenFram(userId, DateTime.Now.AddDays(-30), DateTime.Now));
         }
     }
 }

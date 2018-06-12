@@ -1,0 +1,193 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<GeoElecMVC.Models.Vault>
+
+@{
+    ViewData["Title"] = "GeoElec Vault Generator Frame";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@*
+    <form asp-controller="Vault" asp-action="IndexMember" method="get">
+        <p>
+            <input type="date" name="date_start">
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
+*@
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<form asp-controller="Vault" asp-action="IndexMember" method="get">
+    <p>
+        Generator Id : <input type="text" name="SearchString" value="@ViewData["idGen"]">
+        <input type="submit" value="Filter" />
+    </p>
+    <p>
+        Range : <input type="text" data-toggle="daterangepicker" maxlength="23" name="timestamp" data-filter-type="date-range" value="@ViewData["timestamp"]">
+        <!--class="form-control"-->
+        All dates <input name="checkDate" value="true" type="checkbox" />
+        <!--checked="checked" to valid the checkbox-->
+    </p>
+</form>
+
+
+@if ((ViewData["nrjtot"] != null) && !(ViewData["nrjtot"] is "-1"))
+{
+    @Html.Raw("Total energy = ") @ViewData["nrjtot"] @Html.Raw(" kW")
+}
+
+
+<script>
+    $('[data-filter-type="date-range"]').daterangepicker({
+        showDropdowns: true,
+        autoUpdateInput: true,
+        applyClass: 'btn-sm btn-primary',
+        cancelClass: 'btn-sm btn-default',
+        locale: {
+            //format: 'DD-MM-YYYY',
+            format: 'DD/MM/YYYY',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Range',
+            firstDay: 1
+        }
+    });
+</script>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.log_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.log_timestamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.log_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.generator_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nrj_tot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.power_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.power_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.power_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.current_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.current_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.current_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.voltage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.relay_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.relay_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.magnetic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.payment)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.log_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.log_timestamp)
+            </td>
+            <td>
+                @Html.Raw(item.log_date.Date.ToString("dd/MM/yy"))
+                <!-- @Html.Raw(item.log_date.Date.ToString("dd MMM yyyy")) -->
+                <!-- @Html.Raw(item.log_date.Date.ToString("dd MMMM yyyy")) -->
+                <!-- @Html.DisplayFor(modelItem => item.log_date) -->
+            </td>
+            <td>
+
+
+
+                @Html.DisplayFor(modelItem => item.generator_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nrj_tot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.power_1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.power_2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.power_3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.current_1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.current_2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.current_3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.voltage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.relay_1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.relay_2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.magnetic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.payment)
+            </td>
+        </tr>
+    }
+</table>
