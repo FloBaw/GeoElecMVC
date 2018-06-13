@@ -6,7 +6,7 @@
     <div class="container">
         <img src="~/images/geoelec-logo.png">
         <h1>GéoElec</h1>
-        <p>This app allows you to view the content of different databases.</p>
+        <p>This app allows you to view the data of your generator.</p>
     </div>
 </div>
 <div class="container">
@@ -14,9 +14,26 @@
         <div class="col-md-6">
             <h3><span class="glyphicon glyphicon-info-sign"></span> How this app works</h3>
             <ul>
-                <li>You can chose in the navigator the database you want to view.</li>
-                <li>To do that, you click on the Databases list button.</li>
-                <li>Then, in the list you select the name of the database.</li>
+                @if(!User.Identity.IsAuthenticated)
+                {
+                    <li>You have to log in.</li>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Admin") || User.IsInRole("Member"))
+                    {
+                        <li>You can chose the data from your generator you want to view.</li>
+                        <li>To do that, you click on the Vault button.</li>
+                        <li>Then, you can filter the values of the database.</li>
+                    }
+                    else
+                    {
+                        <li>The administrator may have disabled your account, or it may be awaiting activation.</li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact the administrator to have access to your generator.</a></li>
+                    }
+
+                }
+                
             </ul>
         </div>
         <div class="col-md-6">

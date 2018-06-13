@@ -33,11 +33,11 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Product">Product</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     @if (User.Identity.IsAuthenticated)
                      {
                         @if (User.IsInRole("Admin") || User.IsInRole("Member"))
                          {
-                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                             <li><a asp-area="" asp-controller="Vault" asp-action="IndexMember">Vault</a></li>
                          }
                         @if (User.IsInRole("Admin"))
