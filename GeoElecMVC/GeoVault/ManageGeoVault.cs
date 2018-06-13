@@ -202,9 +202,8 @@ namespace GeoElecMVC.GeoVault
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.log_id, " +
-                    "olidata_frame_generator.log_timestamp, " +
-                    "olidata_frame_generator.log_date, olidata_frame_generator.generator_id, " +
+                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.generator_id, " +
+                    "olidata_frame_generator.log_date, " +
                     "olidata_frame_generator.nrj_tot, " +
                     "olidata_frame_generator.power_1, " +
                     "olidata_frame_generator.power_2, " +
@@ -234,9 +233,8 @@ namespace GeoElecMVC.GeoVault
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.log_id, " +
-                    "olidata_frame_generator.log_timestamp, " +
-                    "olidata_frame_generator.log_date, olidata_frame_generator.generator_id, " +
+                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.generator_id, " +
+                    "olidata_frame_generator.log_date, " +
                     "olidata_frame_generator.nrj_tot, " +
                     "olidata_frame_generator.power_1, " +
                     "olidata_frame_generator.power_2, " +
@@ -267,9 +265,8 @@ namespace GeoElecMVC.GeoVault
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.log_id, " +
-                    "olidata_frame_generator.log_timestamp, " +
-                    "olidata_frame_generator.log_date, olidata_frame_generator.generator_id, " +
+                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.generator_id, " +
+                    "olidata_frame_generator.log_date, " +
                     "olidata_frame_generator.nrj_tot, " +
                     "olidata_frame_generator.power_1, " +
                     "olidata_frame_generator.power_2, " +
@@ -301,9 +298,8 @@ namespace GeoElecMVC.GeoVault
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.log_id, " +
-                    "olidata_frame_generator.log_timestamp, " +
-                    "olidata_frame_generator.log_date, olidata_frame_generator.generator_id, " +
+                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.generator_id, " +
+                    "olidata_frame_generator.log_date, " +
                     "olidata_frame_generator.nrj_tot, " +
                     "olidata_frame_generator.power_1, " +
                     "olidata_frame_generator.power_2, " +

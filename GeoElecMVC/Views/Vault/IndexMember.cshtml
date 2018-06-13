@@ -69,12 +69,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.log_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.log_timestamp)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.log_date)
         </th>
         <th>
@@ -128,12 +122,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.log_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.log_timestamp)
-            </td>
             <td>
                 @Html.Raw(item.log_date.Date.ToString("dd/MM/yy"))
                 <!-- @Html.Raw(item.log_date.Date.ToString("dd MMM yyyy")) -->

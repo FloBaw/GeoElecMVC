@@ -10,21 +10,24 @@ using GeoElecMVC.Models;
 using GeoElecMVC.Repository;
 using Microsoft.AspNetCore.Authorization;
 
+using GeoElecMVC.AdminCustomer;
+
 namespace GeoElecMVC.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly CustomerRepository customerRepository;
+
+        private readonly ManageAdminCustomer manageAdminCustomer;
 
         public CustomerController(IConfiguration configuration)
         {
-            customerRepository = new CustomerRepository(configuration);
+            manageAdminCustomer = new ManageAdminCustomer(configuration);
         }
 
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
-            return View(customerRepository.FindAll());
+            return View(manageAdminCustomer.FindAll());
         }
 
         [Authorize(Roles = "Admin")]
@@ -39,7 +42,7 @@ namespace GeoElecMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                customerRepository.Add(cust);
+                manageAdminCustomer.Add(cust);
                 return RedirectToAction("Index");
             }
             return View(cust);
@@ -54,7 +57,7 @@ namespace GeoElecMVC.Controllers
             {
                 return NotFound();
             }
-            Customer obj = customerRepository.FindByID(id.Value);
+            Customer obj = manageAdminCustomer.FindByID(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -70,7 +73,7 @@ namespace GeoElecMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                customerRepository.Update(obj);
+                manageAdminCustomer.Update(obj);
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -84,7 +87,7 @@ namespace GeoElecMVC.Controllers
             {
                 return NotFound();
             }
-            customerRepository.Remove(id.Value);
+            manageAdminCustomer.Remove(id.Value);
             return RedirectToAction("Index");
         }
     }
