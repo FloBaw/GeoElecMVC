@@ -15,5 +15,9 @@ namespace GeoElecMVC.AdminUserRoles
         T FindByID(string id);
         IEnumerable<T> FindAll();
         T FindByUserName(string username);
+
+        IEnumerable<T> FindAwaitingUsers();
+        T FindAwaitingUserByUserName(string username);
+        void RemoveAwaiting(string username);
     }
 }

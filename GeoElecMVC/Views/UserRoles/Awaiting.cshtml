@@ -7,24 +7,16 @@
 @model IEnumerable<GeoElecMVC.Models.UserRoles>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Awaiting";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<p>
-    <a asp-action="Awaiting">Awaiting activation</a>
-</p>
 <table class="table">
     <tr>
         <th>
             @* @Html.DisplayNameFor(model => model.UserName) *@
             @Html.Raw("<span>Username</span>")
-
-        </th>
-        <th>
-            @* @Html.DisplayNameFor(model => model.Name) *@
-            @Html.Raw("<span>Role</span>")
         </th>
         <th></th>
     </tr>
@@ -36,12 +28,13 @@
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UserName">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserName" onclick="return confirm('Are sure wants to delete?');">Delete</a>
+                <a asp-action="EditAwaiting" asp-route-id="@item.UserName">Edit</a> |
+                <a asp-action="DeleteAwaiting" asp-route-id="@item.UserName" onclick="return confirm('Are sure wants to delete?');">Delete</a>
             </td>
         </tr>
     }
 </table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

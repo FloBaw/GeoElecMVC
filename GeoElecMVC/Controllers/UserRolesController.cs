@@ -34,7 +34,7 @@ namespace GeoElecMVC.Controllers
             return View();
         }
 
-        // POST: Customer/Create
+        // POST: UserRole/Create
         [HttpPost]
         public IActionResult Create(UserRoles cust)
         {
@@ -46,8 +46,8 @@ namespace GeoElecMVC.Controllers
             return View(cust);
 
         }
-        
-        // GET: /Customer/Edit/1
+
+        // GET: /UserRole/Edit/1
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(string id)
         {
@@ -63,6 +63,23 @@ namespace GeoElecMVC.Controllers
             return View(obj);
 
         }
+
+        // GET: /UserRole/EditAwaiting/1
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditAwaiting(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            UserRoles obj = manageAdminUserRoles.FindAwaitingUserByUserName(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View("Create", obj);
+        }
+
         /*
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(string id)
@@ -81,7 +98,7 @@ namespace GeoElecMVC.Controllers
         }
         */
 
-        // POST: /Customer/Edit   
+        // POST: /UserRole/Edit   
         [HttpPost]
         public IActionResult Edit(UserRoles obj)
         {
@@ -94,7 +111,7 @@ namespace GeoElecMVC.Controllers
             return View(obj);
         }
 
-        // GET:/Customer/Delete/1
+        // GET:/UserRole/Delete/1
         public IActionResult Delete(string id)
         {
 
@@ -104,6 +121,25 @@ namespace GeoElecMVC.Controllers
             }
             manageAdminUserRoles.Remove(id);
             return RedirectToAction("Index");
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Awaiting()
+        {
+            return View(manageAdminUserRoles.FindAwaitingUsers());
+        }
+
+        // GET:/UserRole/Delete/1
+        public IActionResult DeleteAwaiting(string id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            manageAdminUserRoles.RemoveAwaiting(id);
+            return RedirectToAction("Awaiting");
         }
     }
 }

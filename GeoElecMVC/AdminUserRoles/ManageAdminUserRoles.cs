@@ -88,5 +88,32 @@ namespace GeoElecMVC.AdminUserRoles
             }
         }
 
+
+        public IEnumerable<UserRoles> FindAwaitingUsers()
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"Id\" not in (select \"AspNetUserRoles\".\"UserId\" from \"AspNetUserRoles\", \"AspNetRoles\" where \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\" and \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\")");
+            }
+        }
+
+        public UserRoles FindAwaitingUserByUserName(string username)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"UserName\" = @Username", new { Username = username }).FirstOrDefault();
+            }
+        }
+
+        public void RemoveAwaiting(string username)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Execute("DELETE FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"UserName\"= @Username", new { Username = username });
+            }
+        }
     }
 }
