@@ -10,12 +10,12 @@ using Npgsql;
 
 using GeoElecMVC.Models;
 
-namespace GeoElecMVC.AdminUserRoles
+namespace GeoElecMVC.SuperAdminUserRoles
 {
-    public class ManageAdminUserRoles : IAdminUserRoles<UserRoles>
+    public class ManageSuperAdminUserRoles : ISuperAdminUserRoles<UserRoles>
     {
         private string connectionString;
-        public ManageAdminUserRoles(IConfiguration configuration)
+        public ManageSuperAdminUserRoles(IConfiguration configuration)
         {
             connectionString = configuration.GetValue<string>("DBInfo:ConnectionString");
         }
@@ -43,7 +43,7 @@ namespace GeoElecMVC.AdminUserRoles
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\", \"AspNetRoles\".\"Name\" FROM \"AspNetUsers\", \"AspNetRoles\", \"AspNetUserRoles\" WHERE \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\" AND \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\"");
+                return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\", \"AspNetRoles\".\"Name\" FROM \"AspNetUsers\", \"AspNetRoles\", \"AspNetUserRoles\" WHERE \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\" AND \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\" order by \"AspNetUsers\".\"UserName\"");
                 //return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\", \"AspNetRoles\".\"Name\", \"AspNetUserRoles\".\"UserId\" FROM \"AspNetUsers\", \"AspNetRoles\", \"AspNetUserRoles\" WHERE \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\" AND \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\"");
                 //return dbConnection.Query<UserRoles>("SELECT * FROM \"AspNetUserRoles\"");
             }
@@ -94,7 +94,7 @@ namespace GeoElecMVC.AdminUserRoles
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"Id\" not in (select \"AspNetUserRoles\".\"UserId\" from \"AspNetUserRoles\", \"AspNetRoles\" where \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\" and \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\")");
+                return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"Id\" not in (select \"AspNetUserRoles\".\"UserId\" from \"AspNetUserRoles\", \"AspNetRoles\" where \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\" and \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\") order by \"AspNetUsers\".\"UserName\"");
             }
         }
 

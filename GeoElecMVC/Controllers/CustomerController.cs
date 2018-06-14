@@ -10,27 +10,27 @@ using GeoElecMVC.Models;
 using GeoElecMVC.Repository;
 using Microsoft.AspNetCore.Authorization;
 
-using GeoElecMVC.AdminCustomer;
+using GeoElecMVC.SuperAdminCustomer;
 
 namespace GeoElecMVC.Controllers
 {
     public class CustomerController : Controller
     {
 
-        private readonly ManageAdminCustomer manageAdminCustomer;
+        private readonly ManageSuperAdminCustomer manageSuperAdminCustomer;
 
         public CustomerController(IConfiguration configuration)
         {
-            manageAdminCustomer = new ManageAdminCustomer(configuration);
+            manageSuperAdminCustomer = new ManageSuperAdminCustomer(configuration);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Index()
         {
-            return View(manageAdminCustomer.FindAll());
+            return View(manageSuperAdminCustomer.FindAll());
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Create()
         {
             return View();
@@ -42,7 +42,7 @@ namespace GeoElecMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                manageAdminCustomer.Add(cust);
+                manageSuperAdminCustomer.Add(cust);
                 return RedirectToAction("Index");
             }
             return View(cust);
@@ -50,14 +50,14 @@ namespace GeoElecMVC.Controllers
         }
 
         // GET: /Customer/Edit/1
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            Customer obj = manageAdminCustomer.FindByID(id.Value);
+            Customer obj = manageSuperAdminCustomer.FindByID(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -73,7 +73,7 @@ namespace GeoElecMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                manageAdminCustomer.Update(obj);
+                manageSuperAdminCustomer.Update(obj);
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -87,7 +87,7 @@ namespace GeoElecMVC.Controllers
             {
                 return NotFound();
             }
-            manageAdminCustomer.Remove(id.Value);
+            manageSuperAdminCustomer.Remove(id.Value);
             return RedirectToAction("Index");
         }
     }

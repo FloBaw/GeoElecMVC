@@ -13,7 +13,7 @@ namespace GeoElecMVC.Models
         public static async Task InitializeAsync(ApplicationDbContext context, IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = { "Admin", "Member" };
+            string[] roleNames = { "SuperAdmin", "Admin", "Member" };
             IdentityResult roleResult;
             foreach (var roleName in roleNames)
             {

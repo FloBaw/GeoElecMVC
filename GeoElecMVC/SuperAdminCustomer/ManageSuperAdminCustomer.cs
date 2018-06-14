@@ -10,12 +10,12 @@ using Npgsql;
 
 using GeoElecMVC.Models;
 
-namespace GeoElecMVC.AdminCustomer
+namespace GeoElecMVC.SuperAdminCustomer
 {
-    public class ManageAdminCustomer : IAdminCustomer<Customer>
+    public class ManageSuperAdminCustomer : ISuperAdminCustomer<Customer>
     {
         private string connectionString;
-        public ManageAdminCustomer(IConfiguration configuration)
+        public ManageSuperAdminCustomer(IConfiguration configuration)
         {
             connectionString = configuration.GetValue<string>("DBInfo:ConnectionString");
         }
@@ -43,7 +43,7 @@ namespace GeoElecMVC.AdminCustomer
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Customer>("SELECT * FROM oliclient");
+                return dbConnection.Query<Customer>("SELECT * FROM oliclient order by company");
             }
         }
 

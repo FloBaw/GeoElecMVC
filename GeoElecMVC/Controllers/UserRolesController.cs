@@ -8,27 +8,27 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 
 using GeoElecMVC.Models;
-using GeoElecMVC.AdminUserRoles;
+using GeoElecMVC.SuperAdminUserRoles;
 
 namespace GeoElecMVC.Controllers
 {
     public class UserRolesController : Controller
     {
-        private readonly ManageAdminUserRoles manageAdminUserRoles;
+        private readonly ManageSuperAdminUserRoles manageSuperAdminUserRoles;
 
         public UserRolesController(IConfiguration configuration)
         {
-            manageAdminUserRoles = new ManageAdminUserRoles(configuration);
+            manageSuperAdminUserRoles = new ManageSuperAdminUserRoles(configuration);
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Index()
         {
-            return View(manageAdminUserRoles.FindAll());
+            return View(manageSuperAdminUserRoles.FindAll());
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Create()
         {
             return View();
@@ -40,7 +40,7 @@ namespace GeoElecMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                manageAdminUserRoles.Add(cust);
+                manageSuperAdminUserRoles.Add(cust);
                 return RedirectToAction("Index");
             }
             return View(cust);
@@ -48,14 +48,14 @@ namespace GeoElecMVC.Controllers
         }
 
         // GET: /UserRole/Edit/1
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            UserRoles obj = manageAdminUserRoles.FindByUserName(id);
+            UserRoles obj = manageSuperAdminUserRoles.FindByUserName(id);
             if (obj == null)
             {
                 return NotFound();
@@ -65,14 +65,14 @@ namespace GeoElecMVC.Controllers
         }
 
         // GET: /UserRole/EditAwaiting/1
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult EditAwaiting(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            UserRoles obj = manageAdminUserRoles.FindAwaitingUserByUserName(id);
+            UserRoles obj = manageSuperAdminUserRoles.FindAwaitingUserByUserName(id);
             if (obj == null)
             {
                 return NotFound();
@@ -105,7 +105,7 @@ namespace GeoElecMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                manageAdminUserRoles.Update(obj);
+                manageSuperAdminUserRoles.Update(obj);
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -119,15 +119,15 @@ namespace GeoElecMVC.Controllers
             {
                 return NotFound();
             }
-            manageAdminUserRoles.Remove(id);
+            manageSuperAdminUserRoles.Remove(id);
             return RedirectToAction("Index");
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Awaiting()
         {
-            return View(manageAdminUserRoles.FindAwaitingUsers());
+            return View(manageSuperAdminUserRoles.FindAwaitingUsers());
         }
 
         // GET:/UserRole/Delete/1
@@ -138,7 +138,7 @@ namespace GeoElecMVC.Controllers
             {
                 return NotFound();
             }
-            manageAdminUserRoles.RemoveAwaiting(id);
+            manageSuperAdminUserRoles.RemoveAwaiting(id);
             return RedirectToAction("Awaiting");
         }
     }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GeoElecMVC.AdminCustomer
+namespace GeoElecMVC.SuperAdminCustomer
 {
-    interface IAdminCustomer<T>
+    interface ISuperAdminCustomer<T>
     {
         void Add(T item);
         void Remove(int id);

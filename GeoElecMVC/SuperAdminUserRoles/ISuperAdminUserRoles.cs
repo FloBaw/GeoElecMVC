@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 using GeoElecMVC.Models;
 
-namespace GeoElecMVC.AdminUserRoles
+namespace GeoElecMVC.SuperAdminUserRoles
 {
-    public interface IAdminUserRoles<T>
+    public interface ISuperAdminUserRoles<T>
     {
         void Add(T item);
         void Remove(string username);

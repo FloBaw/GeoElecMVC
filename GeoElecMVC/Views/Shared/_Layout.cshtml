@@ -36,11 +36,11 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     @if (User.Identity.IsAuthenticated)
                      {
-                        @if (User.IsInRole("Admin") || User.IsInRole("Member"))
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Member"))
                          {
                             <li><a asp-area="" asp-controller="Vault" asp-action="IndexMember">Vault</a></li>
                          }
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("SuperAdmin"))
                         {
                             <li><a asp-area="" asp-controller="Customer" asp-action="Index">Customer</a></li>
                             <li><a asp-area="" asp-controller="UserRoles" asp-action="Index">User Roles</a></li>

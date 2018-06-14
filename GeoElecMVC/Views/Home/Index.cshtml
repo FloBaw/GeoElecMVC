@@ -20,7 +20,7 @@
                 }
                 @if (User.Identity.IsAuthenticated)
                 {
-                    @if (User.IsInRole("Admin") || User.IsInRole("Member"))
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Member"))
                     {
                         <li>You can chose the data from your generator you want to view.</li>
                         <li>To do that, you click on the Vault button.</li>

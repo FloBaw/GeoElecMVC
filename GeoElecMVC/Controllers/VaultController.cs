@@ -71,7 +71,7 @@ namespace GeoElecMVC.Controllers
             return View(testvault.ToList());
         }
         */
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Index(string searchString, string timestamp, string checkDate)
         {
             ViewData["idGen"] = searchString;
@@ -119,7 +119,7 @@ namespace GeoElecMVC.Controllers
         }
 
 
-        [Authorize(Roles = "Admin, Member")]
+        [Authorize(Roles = "SuperAdmin,Admin, Member")]
         public IActionResult IndexMember(string searchString, string timestamp, string checkDate)
         {
             ViewData["idGen"] = searchString;
