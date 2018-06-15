@@ -94,7 +94,10 @@ namespace GeoElecMVC.SuperAdminUserRoles
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"Id\" not in (select \"AspNetUserRoles\".\"UserId\" from \"AspNetUserRoles\", \"AspNetRoles\" where \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\" and \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\") order by \"AspNetUsers\".\"UserName\"");
+
+                return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" " +
+                    "WHERE \"AspNetUsers\".\"Id\" not in (select \"AspNetUserRoles\".\"UserId\" from \"AspNetUserRoles\")");
+                //return dbConnection.Query<UserRoles>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"Id\" not in (select \"AspNetUserRoles\".\"UserId\" from \"AspNetUserRoles\", \"AspNetRoles\" where \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\" and \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\") order by \"AspNetUsers\".\"UserName\"");
             }
         }
 

@@ -105,6 +105,7 @@ namespace GeoElecMVC.Controllers
 
             else if (!String.IsNullOrEmpty(checkDate))
             {
+                ViewData["checkDate"] = "checked";
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     //testvault = testvault.Where(s => s.generator_id.Equals(searchString));
@@ -152,6 +153,7 @@ namespace GeoElecMVC.Controllers
 
             else if (!String.IsNullOrEmpty(checkDate))
             {
+                ViewData["checkDate"] = "checked";
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     //testvault = testvault.Where(s => s.generator_id.Equals(searchString));

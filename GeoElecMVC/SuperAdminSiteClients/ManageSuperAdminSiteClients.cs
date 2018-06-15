@@ -99,7 +99,14 @@ namespace GeoElecMVC.SuperAdminSiteClients
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<SiteClients>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"Id\" not in (select \"AspNetUserRoles\".\"UserId\" from \"AspNetUserRoles\", \"AspNetRoles\" where \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\" and \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\") order by \"AspNetUsers\".\"UserName\"");
+                return dbConnection.Query<SiteClients>("SELECT \"AspNetUsers\".\"UserName\" " +
+                    "FROM \"AspNetUsers\", \"AspNetRoles\", \"AspNetUserRoles\" " +
+                    "WHERE \"AspNetUsers\".\"Id\" NOT IN (SELECT olisiteclients.user_id FROM olisiteclients) " +
+                    "AND \"AspNetUsers\".\"Id\" = \"AspNetUserRoles\".\"UserId\" " +
+                    "AND \"AspNetRoles\".\"Id\" = \"AspNetUserRoles\".\"RoleId\" " +
+                    "AND (\"AspNetRoles\".\"Name\" = 'SuperAdmin' OR \"AspNetRoles\".\"Name\" = 'Admin')");
+
+                // return dbConnection.Query<SiteClients>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"Id\" NOT IN (SELECT olisiteclients.user_id FROM olisiteclients)");
             }
         }
 
@@ -108,16 +115,9 @@ namespace GeoElecMVC.SuperAdminSiteClients
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<SiteClients>("SELECT \"AspNetUsers\".\"UserName\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"UserName\" = @Username", new { Username = username }).FirstOrDefault();
-            }
-        }
-
-        public void RemoveAwaiting(string username)
-        {
-            using (IDbConnection dbConnection = Connection)
-            {
-                dbConnection.Open();
-                dbConnection.Execute("DELETE FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"UserName\"= @Username", new { Username = username });
+                return dbConnection.Query<SiteClients>("SELECT \"AspNetUsers\".\"UserName\" " +
+                    "FROM \"AspNetUsers\" " +
+                    "WHERE \"AspNetUsers\".\"UserName\" = @Username", new { Username = username }).FirstOrDefault();
             }
         }
     }

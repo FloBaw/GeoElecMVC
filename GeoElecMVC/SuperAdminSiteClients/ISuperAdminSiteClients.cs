@@ -15,6 +15,5 @@ namespace GeoElecMVC.SuperAdminSiteClients
 
         IEnumerable<T> FindAwaitingUsers();
         T FindAwaitingUserByUserName(string username);
-        void RemoveAwaiting(string username);
     }
 }

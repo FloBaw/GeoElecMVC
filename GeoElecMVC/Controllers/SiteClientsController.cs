@@ -112,17 +112,5 @@ namespace GeoElecMVC.Controllers
         {
             return View(manageSuperAdminSiteClients.FindAwaitingUsers());
         }
-
-        // GET:/UserRole/Delete/1
-        public IActionResult DeleteAwaiting(string id)
-        {
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-            manageSuperAdminSiteClients.RemoveAwaiting(id);
-            return RedirectToAction("Awaiting");
-        }
     }
 }
