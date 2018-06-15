@@ -31,15 +31,20 @@ namespace GeoElecMVC.GeoVault
 
         /// <summary>
         /// Req for Admin
-        /// - FindAll()
-        /// - getAllGenFram(string searchid)
-        /// - getAllGenFram (DateTime datebegin, DateTime dateend)
-        /// - getAllGenFram(string searchid, DateTime datebegin, DateTime dateend)
+        /// - FindAllGenFram()
+        /// - FindAllGenFram(string searchid)
+        /// - FindAllGenFram (DateTime datebegin, DateTime dateend)
+        /// - FindAllGenFram(string searchid, DateTime datebegin, DateTime dateend)
         /// - getNrjTot(string searchid)
         /// - getNrjTot(string searchid, DateTime datebegin, DateTime dateend)
         /// 
         /// Req for Member
-        /// - FindAllItsGenFram(string searchid)
+        /// - FindAllItsGenFram(string userid)
+        /// - FindAllItsGenFram(string userid, string searchid)
+        /// - FindAllItsGenFram (string userid, DateTime datebegin, DateTime dateend)
+        /// - FindAllItsGenFram(string userid, string searchid, DateTime datebegin, DateTime dateend)
+        /// - getItsNrjTot(string userid, string searchid)
+        /// - getItsNrjTot(string userid, string searchid, DateTime datebegin, DateTime dateend)
         /// </summary>
 
         public IEnumerable<Vault> FindAllGenFram()

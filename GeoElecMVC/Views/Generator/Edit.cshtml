@@ -1,0 +1,102 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model GeoElecMVC.Models.Generator
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Users information:</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Generator_id" class="col-md-2 control-label">Generator</label>
+            <div class="col-md-10">
+                <input asp-for="Generator_id" class="form-control" readonly />
+                <span asp-validation-for="Generator_id" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Company" class="col-md-2 control-label">Company</label>
+            <div class="col-md-10">
+                <input asp-for="Company" class="form-control" readonly />
+                <span asp-validation-for="Company" class="text-danger" />
+                <a asp-action="EditClient" asp-route-id="@Model.Client_id">Edit</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Lessee</label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" readonly />
+                <input asp-for="First_name" class="form-control" readonly />
+                <a asp-action="EditLessee" asp-route-id="@Model.Lessee_id">Edit</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Address</label>
+            <div class="col-md-10">
+                <input asp-for="Address" class="form-control" readonly />
+                <input asp-for="City" class="form-control" readonly />
+                <input asp-for="Country" class="form-control" readonly />
+                <a asp-action="EditPlace" asp-route-id="@Model.Place_id">Edit</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Start_date" class="col-md-2 control-label">Start date</label>
+            <div class="col-md-10">
+                <input asp-for="Start_date" class="form-control" />
+                <span asp-validation-for="Start_date" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="End_date" class="col-md-2 control-label">End date</label>
+            <div class="col-md-10">
+                <input asp-for="End_date" class="form-control" />
+                <span asp-validation-for="End_date" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Maintenance" class="col-md-2 control-label">Maintenance</label>
+            <div class="col-md-10">
+                <input asp-for="Maintenance" class="form-control" />
+                <span asp-validation-for="Maintenance" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Installation_type" class="col-md-2 control-label">Installation</label>
+            <div class="col-md-10">
+                <input asp-for="Installation_type" class="form-control" />
+                <span asp-validation-for="Installation_type" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Specification_id" class="col-md-2 control-label">Specification</label>
+            <div class="col-md-10">
+                <input asp-for="Specification_id" class="form-control" />
+                <span asp-validation-for="Specification_id" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
