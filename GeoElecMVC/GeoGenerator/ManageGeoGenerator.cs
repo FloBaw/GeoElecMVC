@@ -79,6 +79,16 @@ namespace GeoElecMVC.GeoGenerator
                     "AND oligenerator.generator_id = @Generatorid", new { Generatorid = generatorid }).FirstOrDefault();
             }
         }
+
+
+        public Customer FindCustByID(int id)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Customer>("SELECT * FROM oliclient WHERE client_id = @Id", new { Id = id }).FirstOrDefault();
+            }
+        }
     }
 
 

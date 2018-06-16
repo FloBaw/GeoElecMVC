@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 
 using GeoElecMVC.Models;
 using GeoElecMVC.GeoGenerator;
-using GeoElecMVC.SuperAdminCustomer;
 using System.Security.Claims;
 
 namespace GeoElecMVC.Controllers
@@ -17,7 +16,7 @@ namespace GeoElecMVC.Controllers
     public class GeneratorController : Controller
     {
         private readonly ManageGeoGenerator manageGeoGenerator;
-        private readonly ManageSuperAdminCustomer manageSuperAdminCustomer;
+
 
         public GeneratorController(IConfiguration configuration)
         {
@@ -45,20 +44,18 @@ namespace GeoElecMVC.Controllers
 
         }
 
-        public IActionResult EditClient(string id)
+        public IActionResult EditClient(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            int id_int = Int32.Parse(id);
-            // bug
-            Customer obj = manageSuperAdminCustomer.FindByID(id_int);
+            Customer obj = manageGeoGenerator.FindCustByID(id.Value);
             if (obj == null)
             {
                 return NotFound();
             }
-            return View("Customer/Edit",obj);
+            return View("../Customer/Edit",obj);
 
         }
 

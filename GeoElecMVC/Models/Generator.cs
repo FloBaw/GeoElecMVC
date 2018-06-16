@@ -17,7 +17,7 @@ namespace GeoElecMVC.Models
 
         public string Installation_type { get; set; }
 
-        public string Client_id { get; set; }
+        public int Client_id { get; set; }
 
         public string Lessee_id { get; set; }
 
