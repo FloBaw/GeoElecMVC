@@ -89,6 +89,33 @@ namespace GeoElecMVC.GeoGenerator
                 return dbConnection.Query<Customer>("SELECT * FROM oliclient WHERE client_id = @Id", new { Id = id }).FirstOrDefault();
             }
         }
+
+        public IEnumerable<Customer> FindAllClient()
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Customer>("SELECT * FROM oliclient order by company");
+            }
+        }
+
+        public IEnumerable<Lessee> FindAllLessee()
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Lessee>("SELECT * FROM olilessee order by name");
+            }
+        }
+
+        public IEnumerable<Place> FindAllPlace()
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Place>("SELECT * FROM oliplace order by address");
+            }
+        }
     }
 
 

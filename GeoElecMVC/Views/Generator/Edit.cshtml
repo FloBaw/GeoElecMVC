@@ -28,7 +28,7 @@
             <div class="col-md-10">
                 <input asp-for="Company" class="form-control" readonly />
                 <span asp-validation-for="Company" class="text-danger" />
-                <a asp-action="EditClient" asp-route-id="@Model.Client_id">Edit</a>
+                <a asp-action="EditClient" asp-route-id="@Model.Client_id" asp-route-generatorid="@Model.Generator_id">Edit</a>
             </div>
         </div>
         <div class="form-group">
@@ -36,7 +36,7 @@
             <div class="col-md-10">
                 <input asp-for="Name" class="form-control" readonly />
                 <input asp-for="First_name" class="form-control" readonly />
-                <a asp-action="EditLessee" asp-route-id="@Model.Lessee_id">Edit</a>
+                <a asp-action="EditLessee" asp-route-id="@Model.Lessee_id" asp-route-generatorid="@Model.Generator_id">Edit</a>
             </div>
         </div>
         <div class="form-group">
@@ -45,7 +45,7 @@
                 <input asp-for="Address" class="form-control" readonly />
                 <input asp-for="City" class="form-control" readonly />
                 <input asp-for="Country" class="form-control" readonly />
-                <a asp-action="EditPlace" asp-route-id="@Model.Place_id">Edit</a>
+                <a asp-action="EditPlace" asp-route-id="@Model.Place_id" asp-route-generatorid="@Model.Generator_id">Edit</a>
             </div>
         </div>
         <div class="form-group">
