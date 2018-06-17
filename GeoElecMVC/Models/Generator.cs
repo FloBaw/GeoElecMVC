@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,12 +20,11 @@ namespace GeoElecMVC.Models
 
         public int Client_id { get; set; }
 
-        public string Lessee_id { get; set; }
+        public int Lessee_id { get; set; }
 
-        public string Place_id { get; set; }
+        public int Place_id { get; set; }
 
-        public string Specification_id { get; set; }
-
+        public int Specification_id { get; set; }
 
         public string Address { get; set; }
 

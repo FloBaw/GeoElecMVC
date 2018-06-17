@@ -29,6 +29,13 @@ namespace GeoElecMVC.Controllers
             return View(manageGeoGenerator.FindAllGen());
         }
 
+        [Authorize(Roles = "SuperAdmin")]
+        public IActionResult Awaiting()
+        {
+            return View(manageGeoGenerator.FindAwaitingGen());
+        }
+
+
         public IActionResult Edit(string id)
         {
             if (id == null)
@@ -45,17 +52,13 @@ namespace GeoElecMVC.Controllers
 
         }
 
-        public IActionResult EditClient(int? id, string generatorid)
+        public IActionResult EditClientGen(int? id, string generatorid)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            Customer obj = manageGeoGenerator.FindCustByID(id.Value);
-            if (obj == null)
-            {
-                return NotFound();
-            }
+
             ViewData["generatorId"] = generatorid;
             ViewData["clientId"] = id;
             return View(manageGeoGenerator.FindAllClient());
@@ -68,6 +71,7 @@ namespace GeoElecMVC.Controllers
             Customer obj = manageGeoGenerator.FindCustByID(clientid.Value);
             if (ModelState.IsValid)
             {
+                manageGeoGenerator.UpdateGenClient(generatorid, clientid.Value);
                 return View("Edit", manageGeoGenerator.FindByGenerator(generatorid));
                 //manageSuperAdminUserRoles.Update(obj);
                 //return RedirectToAction("Index");
@@ -77,8 +81,14 @@ namespace GeoElecMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult GoToIndexClient()
+        {
+            //return RedirectToAction("../Customer/Index");
+            return Redirect("../Customer/Index");
+        }
 
-        public IActionResult EditLessee(int? id, string generatorid)
+
+        public IActionResult EditLesseeGen(int? id, string generatorid)
         {
             if (id == null)
             {
@@ -95,12 +105,18 @@ namespace GeoElecMVC.Controllers
             Customer obj = manageGeoGenerator.FindCustByID(lesseeid.Value);
             if (ModelState.IsValid)
             {
+                manageGeoGenerator.UpdateGenLessee(generatorid, lesseeid.Value);
                 return View("Edit", manageGeoGenerator.FindByGenerator(generatorid));
             }
             return RedirectToAction("Index");
         }
 
-        public IActionResult EditPlace(int? id, string generatorid)
+        public IActionResult GoToIndexLessee()
+        {
+            return Redirect("../Lessee/Index");
+        }
+
+        public IActionResult EditPlaceGen(int? id, string generatorid)
         {
             if (id == null)
             {
@@ -117,9 +133,15 @@ namespace GeoElecMVC.Controllers
             Customer obj = manageGeoGenerator.FindCustByID(placeid.Value);
             if (ModelState.IsValid)
             {
+                manageGeoGenerator.UpdateGenPlace(generatorid, placeid.Value);
                 return View("Edit", manageGeoGenerator.FindByGenerator(generatorid));
             }
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GoToIndexPlace()
+        {
+            return Redirect("../Place/Index");
         }
 
         [HttpPost]
@@ -128,7 +150,7 @@ namespace GeoElecMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                //manageSuperAdminUserRoles.Update(obj);
+                manageGeoGenerator.UpdateGen(obj);
                 return RedirectToAction("Index");
             }
             return View(obj);

@@ -39,7 +39,7 @@
 
 
 <p>
-    <a asp-action="Create">Add New</a>
+    <a asp-action="GoToIndexPlace">Place</a>
 </p>
 <table class="table">
     <tr>
@@ -78,9 +78,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Place_id">Edit</a>
             </td>
         </tr>
     }

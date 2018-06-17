@@ -1,0 +1,87 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<GeoElecMVC.Models.Generator>
+
+@{
+    ViewData["Title"] = "Awaiting Generator";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Generator_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Client_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lessee_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Place_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Start_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.End_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Maintenance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Installation_type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Specification_id)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Generator_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lessee_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maintenance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Installation_type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specification_id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Generator_id">Edit</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

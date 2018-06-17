@@ -10,7 +10,6 @@ namespace GeoElecMVC.Models
     {
         [Key]
         public int Lessee_id { get; set; }
-        //public string Client_id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -32,5 +31,6 @@ namespace GeoElecMVC.Models
 
         public string Fax { get; set; }
 
+        public int Id { get; set; }
     }
 }

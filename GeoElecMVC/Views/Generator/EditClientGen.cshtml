@@ -4,17 +4,17 @@
 @{
 }
 
-@model IEnumerable<GeoElecMVC.Models.Lessee>
+@model IEnumerable<GeoElecMVC.Models.Customer>
 
 @{
-    ViewData["Title"] = "List Lessee";
+    ViewData["Title"] = "List Client";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="EditLesseeForm">
+<form asp-action="EditClientForm">
     <div class="form-horizontal">
-        <h4>Insert the id of the lessee:</h4>
+        <h4>Insert the id of the client:</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
@@ -24,9 +24,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label">Lessee Id</label>
+            <label class="col-md-2 control-label">Client Id</label>
             <div class="col-md-10">
-                <input value="@ViewData["lesseeId"]" class="form-control" name="lesseeid" />
+                <input value="@ViewData["clientId"]" class="form-control" name="clientid" />
             </div>
         </div>
         <div class="form-group">
@@ -39,12 +39,15 @@
 
 
 <p>
-    <a asp-action="Create">Add New</a>
+    <a asp-action="GoToIndexClient">Client</a>
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Lessee_id)
+            @Html.DisplayNameFor(model => model.Client_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -73,6 +76,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Fax)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Business_number)
+        </th>
         <th></th>
     </tr>
 
@@ -80,7 +86,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Lessee_id)
+                @Html.DisplayFor(modelItem => item.Client_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -110,7 +119,7 @@
                 @Html.DisplayFor(modelItem => item.Fax)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Lessee_id">Edit</a>
+                @Html.DisplayFor(modelItem => item.Business_number)
             </td>
         </tr>
     }

@@ -48,8 +48,18 @@ namespace GeoElecMVC.GeoGenerator
                     "FROM oligenerator, oliclient, oliplace, olilessee " +
                     "WHERE oligenerator.client_id = oliclient.client_id " +
                     "AND oligenerator.place_id = oliplace.place_id " +
-                    "AND oligenerator.lessee_id=olilessee.lessee_id");
+                    "AND oligenerator.lessee_id=olilessee.lessee_id " +
+                    "order by generator_id");
                 //return dbConnection.Query<Generator>("SELECT * FROM oligenerator order by generator_id asc");
+            }
+        }
+
+        public IEnumerable<Generator> FindAwaitingGen()
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Generator>("SELECT * FROM oligenerator order by generator_id");
             }
         }
 
@@ -69,6 +79,7 @@ namespace GeoElecMVC.GeoGenerator
                     "oligenerator.installation_type, " +
                     "oligenerator.specification_id, " +
                     "olilessee.name, " +
+                    "olilessee.first_name, " +
                     "oligenerator.client_id, " +
                     "oligenerator.lessee_id, " +
                     "oligenerator.place_id " +
@@ -104,7 +115,7 @@ namespace GeoElecMVC.GeoGenerator
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Lessee>("SELECT * FROM olilessee order by name");
+                return dbConnection.Query<Lessee>("SELECT * FROM olilessee order by name, first_name");
             }
         }
 
@@ -114,6 +125,42 @@ namespace GeoElecMVC.GeoGenerator
             {
                 dbConnection.Open();
                 return dbConnection.Query<Place>("SELECT * FROM oliplace order by address");
+            }
+        }
+
+        public void UpdateGen(Generator item)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Query("UPDATE oligenerator SET start_date=@Start_date, end_date=@End_date, maintenance=@Maintenance, installation_type=@Installation_type, specification_id=@Specification_id WHERE generator_id = @Generator_id", item);
+            }
+        }
+
+        public void UpdateGenClient(string generatorid, int clientid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Query("UPDATE oligenerator SET client_id=@Client_id WHERE generator_id =@Generator_id", new { Generator_id = generatorid, Client_id = clientid });
+            }
+        }
+
+        public void UpdateGenLessee(string generatorid, int lesseeid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Query("UPDATE oligenerator SET lessee_id=@Lessee_id WHERE generator_id =@Generator_id", new { Generator_id = generatorid, Lessee_id = lesseeid });
+            }
+        }
+
+        public void UpdateGenPlace(string generatorid, int placeid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Query("UPDATE oligenerator SET place_id=@Place_id WHERE generator_id =@Generator_id", new { Generator_id = generatorid, Place_id = placeid });
             }
         }
     }
