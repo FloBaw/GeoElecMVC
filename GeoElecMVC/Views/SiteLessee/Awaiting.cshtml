@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<GeoElecMVC.Models.SiteLessee>
+
+@{
+    ViewData["Title"] = "Awaiting";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Raw("<span>Username</span>")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                <a asp-action="Create" asp-route-id="@item.UserName">Add</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

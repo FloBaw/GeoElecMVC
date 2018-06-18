@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GeoElecMVC.GeoGenerator
 {
-    interface IGeoGenerator<T>
+    public interface IGeoGenerator<T>
     {
         IEnumerable<T> FindAllGen();
         T FindByGenerator(string generatorid);

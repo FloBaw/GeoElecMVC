@@ -118,6 +118,7 @@ namespace GeoElecMVC.GeoGenerator
             }
         }
 
+        /*
         public IEnumerable<Customer> FindAllClient()
         {
             using (IDbConnection dbConnection = Connection)
@@ -144,6 +145,7 @@ namespace GeoElecMVC.GeoGenerator
                 return dbConnection.Query<Place>("SELECT * FROM oliplace order by address");
             }
         }
+        */
 
         /*
         public void UpdateGen(Generator item)

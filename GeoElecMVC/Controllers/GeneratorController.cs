@@ -11,16 +11,26 @@ using GeoElecMVC.Models;
 using GeoElecMVC.GeoGenerator;
 using System.Security.Claims;
 
+using GeoElecMVC.SuperAdminCustomer;
+using GeoElecMVC.SuperAdminLessee;
+using GeoElecMVC.SuperAdminPlace;
+
 namespace GeoElecMVC.Controllers
 {
     public class GeneratorController : Controller
     {
         private readonly ManageGeoGenerator manageGeoGenerator;
+        private readonly ManageSuperAdminCustomer manageSuperAdminCustomer;
+        private readonly ManageSuperAdminLessee manageSuperAdminLessee;
+        private readonly ManageSuperAdminPlace manageSuperAdminPlace;
 
 
         public GeneratorController(IConfiguration configuration)
         {
             manageGeoGenerator = new ManageGeoGenerator(configuration);
+            manageSuperAdminCustomer = new ManageSuperAdminCustomer(configuration);
+            manageSuperAdminLessee = new ManageSuperAdminLessee(configuration);
+            manageSuperAdminPlace = new ManageSuperAdminPlace(configuration);
         }
 
         [Authorize(Roles = "SuperAdmin")]
@@ -97,7 +107,7 @@ namespace GeoElecMVC.Controllers
 
             ViewData["generatorId"] = generatorid;
             ViewData["clientId"] = id;
-            return View(manageGeoGenerator.FindAllClient());
+            return View(manageSuperAdminCustomer.FindAll());
             //return View("../Customer/Edit",obj);
 
         }
@@ -144,7 +154,7 @@ namespace GeoElecMVC.Controllers
             }
             ViewData["generatorId"] = generatorid;
             ViewData["lesseeId"] = id;
-            return View(manageGeoGenerator.FindAllLessee());
+            return View(manageSuperAdminLessee.FindAll());
 
         }
 
@@ -189,7 +199,8 @@ namespace GeoElecMVC.Controllers
             }
             ViewData["generatorId"] = generatorid;
             ViewData["placeId"] = id;
-            return View(manageGeoGenerator.FindAllPlace());
+            return View(manageSuperAdminPlace.FindAll());
+            //return View(manageGeoGenerator.FindAllPlace());
 
         }
 

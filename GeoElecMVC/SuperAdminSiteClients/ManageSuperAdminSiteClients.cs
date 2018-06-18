@@ -52,7 +52,6 @@ namespace GeoElecMVC.SuperAdminSiteClients
             }
         }
 
-
         public SiteClients FindByUserName(string username)
         {
             using (IDbConnection dbConnection = Connection)
@@ -92,7 +91,6 @@ namespace GeoElecMVC.SuperAdminSiteClients
                 //dbConnection.Query("UPDATE \"AspNetUserRoles\" SET \"UserId\" = @UserId,  \"RoleId\"  = @RoleId WHERE \"UserId\" = @UserId", item);
             }
         }
-
 
         public IEnumerable<SiteClients> FindAwaitingUsers()
         {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GeoElecMVC.SuperAdminCustomer
 {
-    interface ISuperAdminCustomer<T>
+    public interface ISuperAdminCustomer<T>
     {
         void Add(T item);
         void Remove(int id);

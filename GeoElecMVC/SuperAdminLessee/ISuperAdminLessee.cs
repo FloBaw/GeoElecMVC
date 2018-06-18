@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GeoElecMVC.SuperAdminLessee
 {
-    interface ISuperAdminLessee<T>
+    public interface ISuperAdminLessee<T>
     {
         void Add(T item);
         void Remove(int id);
