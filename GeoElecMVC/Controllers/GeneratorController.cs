@@ -30,6 +30,25 @@ namespace GeoElecMVC.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Generator/Create
+        [HttpPost]
+        public IActionResult Create(Generator gen_obj)
+        {
+            if (ModelState.IsValid)
+            {
+                manageGeoGenerator.Add(gen_obj);
+                return RedirectToAction("Index");
+            }
+            return View(gen_obj);
+
+        }
+
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Awaiting()
         {
             return View(manageGeoGenerator.FindAwaitingGen());
@@ -43,6 +62,23 @@ namespace GeoElecMVC.Controllers
                 return NotFound();
             }
             Generator obj = manageGeoGenerator.FindByGenerator(id);
+            
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            ViewData["generatorId"] = obj.Generator_id;
+            return View(obj);
+
+        }
+
+        public IActionResult EditAwaiting(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Generator obj = manageGeoGenerator.FindByAwaitingGenerator(id);
             ViewData["generatorId"] = obj.Generator_id;
             if (obj == null)
             {
@@ -68,16 +104,28 @@ namespace GeoElecMVC.Controllers
 
         public IActionResult EditClientForm(int? clientid, string generatorid)
         {
-            Customer obj = manageGeoGenerator.FindCustByID(clientid.Value);
+            Generator obj = manageGeoGenerator.FindByGenerator(generatorid);
+
+            if (obj == null)
+            {
+                Generator objA = manageGeoGenerator.FindByAwaitingGenerator(generatorid);
+                if (objA == null)
+                {
+                    return NotFound();
+                }
+                if (ModelState.IsValid)
+                {
+                    manageGeoGenerator.UpdateGenClient(generatorid, clientid.Value);
+                    return View("EditAwaiting", manageGeoGenerator.FindByAwaitingGenerator(generatorid));
+                }
+                
+            }
+
             if (ModelState.IsValid)
             {
                 manageGeoGenerator.UpdateGenClient(generatorid, clientid.Value);
                 return View("Edit", manageGeoGenerator.FindByGenerator(generatorid));
-                //manageSuperAdminUserRoles.Update(obj);
-                //return RedirectToAction("Index");
-                //return View("../Customer/Edit");
             }
-            //return View("../Customer/Edit", obj);
             return RedirectToAction("Index");
         }
 
@@ -102,7 +150,23 @@ namespace GeoElecMVC.Controllers
 
         public IActionResult EditLesseeForm(int? lesseeid, string generatorid)
         {
-            Customer obj = manageGeoGenerator.FindCustByID(lesseeid.Value);
+            Generator obj = manageGeoGenerator.FindByGenerator(generatorid);
+
+            if (obj == null)
+            {
+                Generator objA = manageGeoGenerator.FindByAwaitingGenerator(generatorid);
+                if (objA == null)
+                {
+                    return NotFound();
+                }
+                if (ModelState.IsValid)
+                {
+                    manageGeoGenerator.UpdateGenLessee(generatorid, lesseeid.Value);
+                    return View("EditAwaiting", manageGeoGenerator.FindByAwaitingGenerator(generatorid));
+                }
+
+            }
+
             if (ModelState.IsValid)
             {
                 manageGeoGenerator.UpdateGenLessee(generatorid, lesseeid.Value);
@@ -110,6 +174,7 @@ namespace GeoElecMVC.Controllers
             }
             return RedirectToAction("Index");
         }
+
 
         public IActionResult GoToIndexLessee()
         {
@@ -130,7 +195,23 @@ namespace GeoElecMVC.Controllers
 
         public IActionResult EditPlaceForm(int? placeid, string generatorid)
         {
-            Customer obj = manageGeoGenerator.FindCustByID(placeid.Value);
+            Generator obj = manageGeoGenerator.FindByGenerator(generatorid);
+
+            if (obj == null)
+            {
+                Generator objA = manageGeoGenerator.FindByAwaitingGenerator(generatorid);
+                if (objA == null)
+                {
+                    return NotFound();
+                }
+                if (ModelState.IsValid)
+                {
+                    manageGeoGenerator.UpdateGenPlace(generatorid, placeid.Value);
+                    return View("EditAwaiting", manageGeoGenerator.FindByAwaitingGenerator(generatorid));
+                }
+
+            }
+
             if (ModelState.IsValid)
             {
                 manageGeoGenerator.UpdateGenPlace(generatorid, placeid.Value);

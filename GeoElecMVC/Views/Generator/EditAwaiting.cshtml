@@ -1,0 +1,98 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model GeoElecMVC.Models.Generator
+
+@{
+    ViewData["Title"] = "Edit awaiting";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Users information:</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Generator_id" class="col-md-2 control-label">Generator</label>
+            <div class="col-md-10">
+                <input asp-for="Generator_id" class="form-control" readonly />
+                <span asp-validation-for="Generator_id" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Client_id" class="col-md-2 control-label">Client id</label>
+            <div class="col-md-10">
+                <input asp-for="Client_id" class="form-control" readonly />
+                <a asp-action="EditClientGen" asp-route-id="@Model.Client_id" asp-route-generatorid="@Model.Generator_id">Edit</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Lessee id</label>
+            <div class="col-md-10">
+                <input asp-for="Lessee_id" class="form-control" readonly />
+                <a asp-action="EditLesseeGen" asp-route-id="@Model.Lessee_id" asp-route-generatorid="@Model.Generator_id">Edit</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Place id</label>
+            <div class="col-md-10">
+                <input asp-for="Place_id" class="form-control" readonly />
+                <a asp-action="EditPlaceGen" asp-route-id="@Model.Place_id" asp-route-generatorid="@Model.Generator_id">Edit</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Start_date" class="col-md-2 control-label">Start date</label>
+            <div class="col-md-10">
+                <input asp-for="Start_date" class="form-control" />
+                <span asp-validation-for="Start_date" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="End_date" class="col-md-2 control-label">End date</label>
+            <div class="col-md-10">
+                <input asp-for="End_date" class="form-control" />
+                <span asp-validation-for="End_date" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Maintenance" class="col-md-2 control-label">Maintenance</label>
+            <div class="col-md-10">
+                <input asp-for="Maintenance" class="form-control" />
+                <span asp-validation-for="Maintenance" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Installation_type" class="col-md-2 control-label">Installation</label>
+            <div class="col-md-10">
+                <input asp-for="Installation_type" class="form-control" />
+                <span asp-validation-for="Installation_type" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Specification_id" class="col-md-2 control-label">Specification</label>
+            <div class="col-md-10">
+                <input asp-for="Specification_id" class="form-control" />
+                <span asp-validation-for="Specification_id" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

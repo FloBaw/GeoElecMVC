@@ -28,6 +28,15 @@ namespace GeoElecMVC.GeoGenerator
             }
         }
 
+        public void Add(Generator item)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Execute("INSERT INTO oligenerator (generator_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id, @Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+            }
+        }
+
         public IEnumerable<Generator> FindAllGen()
         {
             using (IDbConnection dbConnection = Connection)
@@ -59,10 +68,16 @@ namespace GeoElecMVC.GeoGenerator
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Generator>("SELECT * FROM oligenerator order by generator_id");
+                return dbConnection.Query<Generator>("SELECT * FROM oligenerator " +
+                    "WHERE generator_id NOT IN (SELECT oligenerator.generator_id " +
+                    "FROM oligenerator, oliclient, oliplace, olilessee " +
+                    "WHERE oligenerator.client_id = oliclient.client_id " +
+                    "AND oligenerator.place_id = oliplace.place_id " +
+                    "AND oligenerator.lessee_id=olilessee.lessee_id) " +
+                    "order by generator_id");
             }
         }
-
+        
         public Generator FindByGenerator(string generatorid)
         {
             using (IDbConnection dbConnection = Connection)
@@ -90,14 +105,16 @@ namespace GeoElecMVC.GeoGenerator
                     "AND oligenerator.generator_id = @Generatorid", new { Generatorid = generatorid }).FirstOrDefault();
             }
         }
+        
 
-
-        public Customer FindCustByID(int id)
+        public Generator FindByAwaitingGenerator(string generatorid)
         {
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Customer>("SELECT * FROM oliclient WHERE client_id = @Id", new { Id = id }).FirstOrDefault();
+                return dbConnection.Query<Generator>("SELECT * " +
+                    "FROM oligenerator " +
+                    "WHERE oligenerator.generator_id = @Generatorid", new { Generatorid = generatorid }).FirstOrDefault();
             }
         }
 
@@ -127,6 +144,18 @@ namespace GeoElecMVC.GeoGenerator
                 return dbConnection.Query<Place>("SELECT * FROM oliplace order by address");
             }
         }
+
+        /*
+        public void UpdateGen(Generator item)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Query("UPDATE oligenerator SET start_date=@Start_date, end_date=@End_date, maintenance=@Maintenance, installation_type=@Installation_type, specification_id=@Specification_id WHERE generator_id = @Generator_id", item);
+            }
+        }
+
+        */
 
         public void UpdateGen(Generator item)
         {

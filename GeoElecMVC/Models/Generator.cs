@@ -8,6 +8,7 @@ namespace GeoElecMVC.Models
 {
     public class Generator
     {
+        [Required]
         public string Generator_id { get; set; }
 
         public string Start_date { get; set; }
