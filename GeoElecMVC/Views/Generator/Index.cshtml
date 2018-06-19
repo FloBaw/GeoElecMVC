@@ -71,13 +71,17 @@
             @Html.DisplayFor(modelItem => item.Company)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
-            @Html.DisplayFor(modelItem => item.First_name)
+            <span style="white-space:nowrap">
+                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.First_name)
+            </span>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Address),
-            @Html.DisplayFor(modelItem => item.City),
-            @Html.DisplayFor(modelItem => item.Country)
+            <span style="white-space:nowrap">
+                @Html.DisplayFor(modelItem => item.Address),
+                @Html.DisplayFor(modelItem => item.City),
+                @Html.DisplayFor(modelItem => item.Country)
+            </span>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Start_date)
@@ -95,7 +99,10 @@
             @Html.DisplayFor(modelItem => item.Specification_id)
         </td>
         <td>
-            <a asp-action="Edit" asp-route-id="@item.Generator_id">Edit</a>
+            <span style="white-space:nowrap">
+                <a asp-action="Edit" asp-route-id="@item.Generator_id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Generator_id" onclick="return confirm('Are sure wants to delete?');">Delete</a>
+            </span>
         </td>
     </tr>
     }

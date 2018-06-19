@@ -30,7 +30,7 @@ namespace GeoElecMVC.GeoVault
         }
 
         /// <summary>
-        /// Req for Admin
+        /// Req for SuperAdmin
         /// - FindAllGenFram()
         /// - FindAllGenFram(string searchid)
         /// - FindAllGenFram (DateTime datebegin, DateTime dateend)
@@ -38,13 +38,21 @@ namespace GeoElecMVC.GeoVault
         /// - getNrjTot(string searchid)
         /// - getNrjTot(string searchid, DateTime datebegin, DateTime dateend)
         /// 
-        /// Req for Member
+        /// Req for Admin
         /// - FindAllItsGenFram(string userid)
         /// - FindAllItsGenFram(string userid, string searchid)
         /// - FindAllItsGenFram (string userid, DateTime datebegin, DateTime dateend)
         /// - FindAllItsGenFram(string userid, string searchid, DateTime datebegin, DateTime dateend)
         /// - getItsNrjTot(string userid, string searchid)
         /// - getItsNrjTot(string userid, string searchid, DateTime datebegin, DateTime dateend)
+        /// 
+        /// Req for Lessee
+        /// - FindAllLesseeGenFram(string userid)
+        /// - FindAllLesseeGenFram(string userid, string searchid)
+        /// - FindAllLesseeGenFram (string userid, DateTime datebegin, DateTime dateend)
+        /// - FindAllLesseeGenFram(string userid, string searchid, DateTime datebegin, DateTime dateend)
+        /// - getLesseeNrjTot(string userid, string searchid)
+        /// - getLesseeNrjTot(string userid, string searchid, DateTime datebegin, DateTime dateend)
         /// </summary>
 
         public IEnumerable<Vault> FindAllGenFram()
@@ -382,5 +390,160 @@ namespace GeoElecMVC.GeoVault
 
             }
         }
+
+
+        public IEnumerable<Vault> FindAllLesseeGenFram(string userid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.generator_id, " +
+                    "olidata_frame_generator.log_date, " +
+                    "olidata_frame_generator.nrj_tot, " +
+                    "olidata_frame_generator.power_1, " +
+                    "olidata_frame_generator.power_2, " +
+                    "olidata_frame_generator.power_3, " +
+                    "olidata_frame_generator.latitude, " +
+                    "olidata_frame_generator.longitude, " +
+                    "olidata_frame_generator.payment " +
+                    "FROM olidata_frame_generator, oligenerator, olilessee, olisitelessee " +
+                    "WHERE olidata_frame_generator.generator_id = oligenerator.generator_id " +
+                    "and oligenerator.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.user_id = @userId " +
+                    "order by log_date desc",
+                    new { userId = userid });
+            }
+        }
+
+        public IEnumerable<Vault> FindAllLesseeGenFram(string userid, string searchid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.generator_id, " +
+                    "olidata_frame_generator.log_date, " +
+                    "olidata_frame_generator.nrj_tot, " +
+                    "olidata_frame_generator.power_1, " +
+                    "olidata_frame_generator.power_2, " +
+                    "olidata_frame_generator.power_3, " +
+                    "olidata_frame_generator.latitude, " +
+                    "olidata_frame_generator.longitude, " +
+                    "olidata_frame_generator.payment " +
+                    "FROM olilessee, oligenerator, olidata_frame_generator, olisitelessee " +
+                    "WHERE oligenerator.generator_id = olidata_frame_generator.generator_id " +
+                    "and oligenerator.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.user_id = @userId " +
+                    "and oligenerator.generator_id LIKE Concat(@generator_id,'%') " +
+                    "order by log_date desc",
+                    new { userId = userid, generator_id = searchid });
+            }
+        }
+
+        public IEnumerable<Vault> FindAllLesseeGenFram(string userid, DateTime datebegin, DateTime dateend)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.generator_id, " +
+                    "olidata_frame_generator.log_date, " +
+                    "olidata_frame_generator.nrj_tot, " +
+                    "olidata_frame_generator.power_1, " +
+                    "olidata_frame_generator.power_2, " +
+                    "olidata_frame_generator.power_3, " +
+                    "olidata_frame_generator.latitude, " +
+                    "olidata_frame_generator.longitude, " +
+                    "olidata_frame_generator.payment " +
+                    "FROM olilessee, oligenerator, olidata_frame_generator, olisitelessee " +
+                    "WHERE oligenerator.generator_id = olidata_frame_generator.generator_id " +
+                    "and oligenerator.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.user_id = @userId " +
+                    "and log_date <= @dateEnd " +
+                    "and log_date >= @dateBegin " +
+                    "order by log_date desc",
+                    new { userId = userid, dateBegin = datebegin, dateEnd = dateend });
+            }
+        }
+
+        public IEnumerable<Vault> FindAllLesseeGenFram(string userid, string searchid, DateTime datebegin, DateTime dateend)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<Vault>("SELECT olidata_frame_generator.generator_id, " +
+                    "olidata_frame_generator.log_date, " +
+                    "olidata_frame_generator.nrj_tot, " +
+                    "olidata_frame_generator.power_1, " +
+                    "olidata_frame_generator.power_2, " +
+                    "olidata_frame_generator.power_3, " +
+                    "olidata_frame_generator.latitude, " +
+                    "olidata_frame_generator.longitude, " +
+                    "olidata_frame_generator.payment " +
+                    "FROM olilessee, oligenerator, olidata_frame_generator, olisitelessee " +
+                    "WHERE oligenerator.generator_id = olidata_frame_generator.generator_id " +
+                    "and oligenerator.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.user_id = @userId " +
+                    "and oligenerator.generator_id LIKE Concat(@generator_id,'%') " +
+                    "and log_date <= @dateEnd " +
+                    "and log_date >= @dateBegin " +
+                    "order by log_date desc",
+                    new { userId = userid, generator_id = searchid, dateBegin = datebegin, dateEnd = dateend });
+            }
+        }
+
+
+        public float getLesseeNrjTot(string userid, string searchid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                try
+                {
+                    return dbConnection.Query<float>("SELECT sum(olidata_frame_generator.nrj_tot) as tot_nrj " +
+                    "FROM olilessee, oligenerator, olidata_frame_generator, olisitelessee " +
+                    "WHERE oligenerator.generator_id = olidata_frame_generator.generator_id " +
+                    "and oligenerator.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.user_id = @userId " +
+                    "and oligenerator.generator_id = @generator_id ",
+                    new { userId = userid, generator_id = searchid }).Single();
+                }
+                catch
+                {
+                    return -1;
+                }
+
+            }
+        }
+
+        public float getLesseeNrjTot(string userid, string searchid, DateTime datebegin, DateTime dateend)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                try
+                {
+                    return dbConnection.Query<float>("SELECT sum(olidata_frame_generator.nrj_tot) as tot_nrj " +
+                    "FROM olilessee, oligenerator, olidata_frame_generator, olisitelessee " +
+                    "WHERE oligenerator.generator_id = olidata_frame_generator.generator_id " +
+                    "and oligenerator.lessee_id = olilessee.lessee_id " +
+                    "and oligenerator.generator_id = @generator_id " +
+                    "and olisitelessee.lessee_id = olilessee.lessee_id " +
+                    "and olisitelessee.user_id = @userId " +
+                    "and log_date <= @dateEnd " +
+                    "and log_date >= @dateBegin",
+                    new { userId = userid, generator_id = searchid, dateBegin = datebegin, dateEnd = dateend }).Single();
+                }
+                catch
+                {
+                    return -1;
+                }
+
+            }
+        }
+
     }
 }

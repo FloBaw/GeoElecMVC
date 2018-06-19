@@ -26,7 +26,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-<form asp-controller="Vault" asp-action="IndexMember" method="get">
+<form asp-controller="Vault" asp-action="IndexAdmin" method="get">
     <p>
         Generator Id : <input type="text" name="SearchString" value="@ViewData["idGen"]">
         <input type="submit" value="Filter" />
@@ -34,7 +34,7 @@
     <p>
         Range : <input type="text" data-toggle="daterangepicker" maxlength="23" name="timestamp" data-filter-type="date-range" value="@ViewData["timestamp"]">
         <!--class="form-control"-->
-        All dates <input name="checkDate" value="true" type="checkbox" checked="@ViewData["checkDate"]"/>
+        All dates <input name="checkDate" value="true" type="checkbox" checked="@ViewData["checkDate"]" />
         <!--checked="checked" to valid the checkbox-->
     </p>
 </form>
@@ -69,22 +69,45 @@
 <table class="table">
     <tr>
         <th>
-            @Html.Raw("<span>Date</span>")
+            @Html.Raw("<span style='white-space:nowrap'>Date</span>")
+            <!-- @Html.Raw("<span style='white-space:nowrap;color:red;'>Date</span>")) -->
+            <!-- <span style="color:#3d3838">Date</span> -->
         </th>
         <th>
-            @Html.Raw("<span>Generator ID</span>")
+            @Html.Raw("<span style='white-space:nowrap'>Generator ID</span>")
         </th>
         <th>
-            @Html.Raw("<span>Total energy</span>")
+            @Html.Raw("<span style='white-space:nowrap'>Total energy</span>")
         </th>
         <th>
-            @Html.Raw("<span>Power 1</span>")
+            @Html.Raw("<span style='white-space:nowrap'>Power 1</span>")
         </th>
         <th>
-            @Html.Raw("<span>Power 2</span>")
+            @Html.Raw("<span style='white-space:nowrap'>Power 2</span>")
         </th>
         <th>
-            @Html.Raw("<span>Power 3</span>")
+            @Html.Raw("<span style='white-space:nowrap'>Power 3</span>")
+        </th>
+        <th>
+            @Html.Raw("<span style='white-space:nowrap'>Current 1</span>")
+        </th>
+        <th>
+            @Html.Raw("<span style='white-space:nowrap'>Current 2</span>")
+        </th>
+        <th>
+            @Html.Raw("<span style='white-space:nowrap'>Current 3</span>")
+        </th>
+        <th>
+            @Html.Raw("<span>Voltage</span>")
+        </th>
+        <th>
+            @Html.Raw("<span style='white-space:nowrap'>Relay 1</span>")
+        </th>
+        <th>
+            @Html.Raw("<span style='white-space:nowrap'>Relay 2</span>")
+        </th>
+        <th>
+            @Html.Raw("<span>Magnetic</span>")
         </th>
         <th>
             @Html.Raw("<span>Latitude</span>")
@@ -102,7 +125,10 @@
     {
         <tr>
             <td>
-                @Html.Raw(item.log_date.Date.ToString("dd/MM/yy"))
+                <span style="white-space:nowrap;">@Html.Raw(item.log_date.Date.ToString("dd/MM/yy"))</span>
+                <!-- @Html.Raw(item.log_date.Date.ToString("dd MMM yyyy")) -->
+                <!-- @Html.Raw(item.log_date.Date.ToString("dd MMMM yyyy")) -->
+                <!-- @Html.DisplayFor(modelItem => item.log_date) -->
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.generator_id)
@@ -118,6 +144,27 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.power_3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.current_1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.current_2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.current_3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.voltage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.relay_1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.relay_2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.magnetic)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.latitude)

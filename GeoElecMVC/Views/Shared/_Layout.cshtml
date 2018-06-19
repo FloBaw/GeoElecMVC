@@ -36,9 +36,13 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     @if (User.Identity.IsAuthenticated)
                      {
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Member"))
+                         {
+                            <li><a asp-area="" asp-controller="Vault" asp-action="IndexMember">Database</a></li>
+                         }
                         @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
                          {
-                            <li><a asp-area="" asp-controller="Vault" asp-action="IndexMember">Database Admin</a></li>
+                            <li><a asp-area="" asp-controller="Vault" asp-action="IndexAdmin">Database Grid operator</a></li>
                          }
                         @if (User.IsInRole("SuperAdmin"))
                         {

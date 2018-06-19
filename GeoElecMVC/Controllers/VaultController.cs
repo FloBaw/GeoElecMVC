@@ -120,8 +120,8 @@ namespace GeoElecMVC.Controllers
         }
 
 
-        [Authorize(Roles = "SuperAdmin,Admin, Member")]
-        public IActionResult IndexMember(string searchString, string timestamp, string checkDate)
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        public IActionResult IndexAdmin(string searchString, string timestamp, string checkDate)
         {
             ViewData["idGen"] = searchString;
             ViewData["timestamp"] = timestamp;
@@ -156,8 +156,6 @@ namespace GeoElecMVC.Controllers
                 ViewData["checkDate"] = "checked";
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    //testvault = testvault.Where(s => s.generator_id.Equals(searchString));
-                    //testvault = testvault.Where(s => s.generator_id.Contains(searchString));
                     ViewData["nrjtot"] = (manageGeoVault.getItsNrjTot(userId, searchString)).ToString();
                     return View(manageGeoVault.FindAllItsGenFram(userId, searchString));
                 }
@@ -165,6 +163,52 @@ namespace GeoElecMVC.Controllers
             }
 
             return View(manageGeoVault.FindAllItsGenFram(userId, DateTime.Now.AddDays(-30), DateTime.Now));
+        }
+
+
+        [Authorize(Roles = "SuperAdmin,Admin, Member")]
+        public IActionResult IndexMember(string searchString, string timestamp, string checkDate)
+        {
+            ViewData["idGen"] = searchString;
+            ViewData["timestamp"] = timestamp;
+            var ident = User.Identity as ClaimsIdentity;
+            var userId = ident.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            //ViewData["userId"] = userId;
+            if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && !String.IsNullOrEmpty(searchString))
+            {
+
+                string[] splitDate = timestamp.Split('-');
+                string dateBegin = splitDate[0];
+                string dateEnd = splitDate[1];
+                DateTime parsedDateBegin = DateTime.Parse(dateBegin);
+                DateTime parsedDateEnd = DateTime.Parse(dateEnd);
+
+                ViewData["nrjtot"] = (manageGeoVault.getLesseeNrjTot(userId, searchString, parsedDateBegin, parsedDateEnd)).ToString();
+                return View(manageGeoVault.FindAllLesseeGenFram(userId, searchString, parsedDateBegin, parsedDateEnd));
+            }
+
+            else if (!String.IsNullOrEmpty(timestamp) && String.IsNullOrEmpty(checkDate) && String.IsNullOrEmpty(searchString))
+            {
+                string[] splitDate = timestamp.Split('-');
+                string dateBegin = splitDate[0];
+                string dateEnd = splitDate[1];
+                DateTime parsedDateBegin = DateTime.Parse(dateBegin);
+                DateTime parsedDateEnd = DateTime.Parse(dateEnd);
+                return View(manageGeoVault.FindAllLesseeGenFram(userId, parsedDateBegin, parsedDateEnd));
+            }
+
+            else if (!String.IsNullOrEmpty(checkDate))
+            {
+                ViewData["checkDate"] = "checked";
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    ViewData["nrjtot"] = (manageGeoVault.getLesseeNrjTot(userId, searchString)).ToString();
+                    return View(manageGeoVault.FindAllLesseeGenFram(userId, searchString));
+                }
+                return View(manageGeoVault.FindAllLesseeGenFram(userId));
+            }
+
+            return View(manageGeoVault.FindAllLesseeGenFram(userId, DateTime.Now.AddDays(-30), DateTime.Now));
         }
     }
 }

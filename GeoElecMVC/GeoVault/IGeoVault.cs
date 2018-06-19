@@ -22,5 +22,12 @@ namespace GeoElecMVC.GeoVault
         IEnumerable<T> FindAllItsGenFram(string userid, string searchid, DateTime datebegin, DateTime dateend);
         float getItsNrjTot(string userid, string searchid);
         float getItsNrjTot(string userid, string searchid, DateTime datebegin, DateTime dateend);
+
+        IEnumerable<T> FindAllLesseeGenFram(string userid);
+        IEnumerable<T> FindAllLesseeGenFram(string userid, string searchid);
+        IEnumerable<T> FindAllLesseeGenFram(string userid, DateTime datebegin, DateTime dateend);
+        IEnumerable<T> FindAllLesseeGenFram(string userid, string searchid, DateTime datebegin, DateTime dateend);
+        float getLesseeNrjTot(string userid, string searchid);
+        float getLesseeNrjTot(string userid, string searchid, DateTime datebegin, DateTime dateend);
     }
 }

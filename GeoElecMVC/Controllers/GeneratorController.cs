@@ -248,5 +248,16 @@ namespace GeoElecMVC.Controllers
             return View(obj);
         }
 
+        public IActionResult Delete(string id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            manageGeoGenerator.Remove(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }

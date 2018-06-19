@@ -42,7 +42,7 @@
 
 @if ((ViewData["nrjtot"] != null) && !(ViewData["nrjtot"] is "-1"))
 {
-    @Html.Raw("Total energy = ") @ViewData["nrjtot"] @Html.Raw(" kW")
+    <span style="font-weight:bold">@Html.Raw("Total energy = ") @ViewData["nrjtot"] @Html.Raw(" kWh")</span>
 }
 
 

@@ -33,7 +33,39 @@ namespace GeoElecMVC.GeoGenerator
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                dbConnection.Execute("INSERT INTO oligenerator (generator_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id, @Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                if(item.Client_id == 0 && item.Lessee_id == 0 && item.Place_id == 0)
+                {
+                    dbConnection.Execute("INSERT INTO oligenerator (generator_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id,@Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                }
+                else if(item.Client_id == 0 && item.Lessee_id == 0)
+                {
+                    dbConnection.Execute("INSERT INTO oligenerator (generator_id,place_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id,@Place_id,@Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                }
+                else if (item.Client_id == 0 && item.Place_id == 0)
+                {
+                    dbConnection.Execute("INSERT INTO oligenerator (generator_id,lessee_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id,@Lessee_id,@Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                }
+                else if (item.Place_id == 0 && item.Lessee_id == 0)
+                {
+                    dbConnection.Execute("INSERT INTO oligenerator (generator_id,client_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id,@Client_id,@Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                }
+                else if (item.Client_id == 0)
+                {
+                    dbConnection.Execute("INSERT INTO oligenerator (generator_id,lessee_id,place_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id,@Lessee_id,@Place_id,@Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                }
+                else if (item.Lessee_id == 0)
+                {
+                    dbConnection.Execute("INSERT INTO oligenerator (generator_id,client_id,place_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id,@Client_id,@Place_id,@Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                }
+                else if (item.Place_id == 0)
+                {
+                    dbConnection.Execute("INSERT INTO oligenerator (generator_id,client_id,lessee_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id,@Client_id,@Lessee_id,@Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                }
+                else
+                {
+                    dbConnection.Execute("INSERT INTO oligenerator (generator_id,client_id,lessee_id,place_id,start_date,end_date,maintenance,installation_type,specification_id) VALUES(@Generator_id,@Client_id,@Lessee_id,@Place_id,@Start_date,@End_date,@Maintenance,@Installation_type,@Specification_id)", item);
+                }
+
             }
         }
 
@@ -115,6 +147,16 @@ namespace GeoElecMVC.GeoGenerator
                 return dbConnection.Query<Generator>("SELECT * " +
                     "FROM oligenerator " +
                     "WHERE oligenerator.generator_id = @Generatorid", new { Generatorid = generatorid }).FirstOrDefault();
+            }
+        }
+
+        public void Remove(string generatorid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Execute("DELETE FROM oligenerator " +
+                    "WHERE oligenerator.generator_id = @Generatorid", new { Generatorid = generatorid });
             }
         }
 
