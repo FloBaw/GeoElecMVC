@@ -23,9 +23,17 @@
                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Member"))
                     {
                         <li>You can chose the data from your generator you want to view.</li>
-                        <li>To do that, you click on the Vault button.</li>
+                        <li>To do that, you click on the Database button.</li>
                         <li>Then, you can filter the values of the database.</li>
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                        {
+                        <br/>
+                        <li>You can also access to all the data of your clients.</li>
+                        <li>To do that, you click on the Database Grid operator button.</li>
+                        <li>Then, you can filter the values of the database.</li>
+                        }
                     }
+                    
                     else
                     {
                         <li>The administrator may have disabled your account, or it may be awaiting activation.</li>
