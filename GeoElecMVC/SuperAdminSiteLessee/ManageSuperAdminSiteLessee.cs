@@ -28,6 +28,17 @@ namespace GeoElecMVC.SuperAdminSiteLessee
             }
         }
 
+        public void Add(string username, int lesseid)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                dbConnection.Execute("INSERT INTO olisitelessee (user_id, lessee_id) " +
+                    "VALUES ((SELECT \"AspNetUsers\".\"Id\" FROM \"AspNetUsers\" WHERE \"AspNetUsers\".\"UserName\"=@UserName)," +
+                    " (@Lessee_id))", new { UserName = username, Lessee_id= lesseid });
+            }
+        }
+        /*
         public void Add(SiteLessee item)
         {
             using (IDbConnection dbConnection = Connection)
@@ -38,7 +49,7 @@ namespace GeoElecMVC.SuperAdminSiteLessee
                     " (@Lessee_id))", item);
             }
         }
-
+        */
         public IEnumerable<SiteLessee> FindAll()
         {
             using (IDbConnection dbConnection = Connection)

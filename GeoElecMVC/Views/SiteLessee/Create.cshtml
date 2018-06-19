@@ -3,49 +3,116 @@
 *@
 @{
 }
-@model GeoElecMVC.Models.SiteLessee
+
+@model IEnumerable<GeoElecMVC.Models.Lessee>
 
 @{
     ViewData["Title"] = "Add";
-
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <form asp-action="Create">
     <div class="form-horizontal">
-        <h4>Lessee information:</h4>
+        <h4>Insert the id of the lessee:</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="UserName" class="col-md-2 control-label">Username</label>
+            <label class="col-md-2 control-label">Username</label>
             <div class="col-md-10">
-                <input asp-for="UserName" class="form-control" value="@ViewData["UserName"]" readonly />
-                <span asp-validation-for="UserName" class="text-danger" />
+                <input value="@ViewData["userName"]" class="form-control" name="username" readonly />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Lessee_id" class="col-md-2 control-label">Lessee id</label>
+            <label class="col-md-2 control-label">Lessee Id</label>
             <div class="col-md-10">
-                <input asp-for="Lessee_id" class="form-control" />
-                <span asp-validation-for="Lessee_id" class="text-danger" />
+                <input value="@ViewData["lesseeId"]" class="form-control" name="lesseeid" />
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 </form>
 
+
+<p>
+    <a asp-action="GoToIndexLessee">Lessee</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Lessee_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fax)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lessee_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fax)
+            </td>
+        </tr>
+    }
+</table>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-@section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-}

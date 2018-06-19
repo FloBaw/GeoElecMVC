@@ -9,16 +9,19 @@ using Microsoft.AspNetCore.Authorization;
 
 using GeoElecMVC.Models;
 using GeoElecMVC.SuperAdminSiteLessee;
+using GeoElecMVC.SuperAdminLessee;
 
 namespace GeoElecMVC.Controllers
 {
     public class SiteLesseeController : Controller
     {
         private readonly ManageSuperAdminSiteLessee manageSuperAdminSiteLessee;
+        private readonly ManageSuperAdminLessee manageSuperAdminLessee;
 
         public SiteLesseeController(IConfiguration configuration)
         {
             manageSuperAdminSiteLessee = new ManageSuperAdminSiteLessee(configuration);
+            manageSuperAdminLessee = new ManageSuperAdminLessee(configuration);
         }
 
         [Authorize(Roles = "SuperAdmin")]
@@ -71,14 +74,14 @@ namespace GeoElecMVC.Controllers
                 return NotFound();
             }
             ViewData["UserName"] = id;
-            return View("Create");
+            return View("Create", manageSuperAdminLessee.FindAll());
         }
 
         // POST: SiteLessee/Create
         [HttpPost]
-        public IActionResult Create(SiteLessee obj_sitelessee)
+        public IActionResult Create(int? lesseeid, string username)
         {
-            manageSuperAdminSiteLessee.Add(obj_sitelessee);
+            manageSuperAdminSiteLessee.Add(username, lesseeid.Value);
             return RedirectToAction("Index");
         }
 
@@ -92,6 +95,11 @@ namespace GeoElecMVC.Controllers
             }
             manageSuperAdminSiteLessee.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GoToIndexLessee()
+        {
+            return Redirect("../Lessee/Index");
         }
 
     }
