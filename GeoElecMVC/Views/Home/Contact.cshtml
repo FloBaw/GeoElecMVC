@@ -19,23 +19,33 @@
 <div id="contact-form row">
     <form asp-controller="Home" asp-action="Contact" asp-anti-forgery="true" method="post">
         <div class="form-group">
-            <div class="col-md-12 form-group">
-                <input asp-for="Name" class="form-control" placeholder="Name" />
-                <span asp-validation-for="Name" style="color: red"></span>
+            <div class="row">
+                <div class="col-md-6 form-group clear:left">
+                    <input asp-for="Name" class="form-control" placeholder="Name" />
+                    <span asp-validation-for="Name" style="color: red"></span>
+                </div>
             </div>
-            <div class="col-md-12 form-group">
-                <input asp-for="Email" class="form-control" placeholder="Email" />
-                <span asp-validation-for="Email" style="color: red"></span>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <input asp-for="Email" class="form-control" placeholder="Email" />
+                    <span asp-validation-for="Email" style="color: red"></span>
+                </div>
             </div>
-            <div class="col-md-12 form-group">
-                <input asp-for="Subject" class="form-control" placeholder="Subject" />
-                <span asp-validation-for="Subject" style="color: red"></span>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <input asp-for="Subject" class="form-control" placeholder="Subject" />
+                    <span asp-validation-for="Subject" style="color: red"></span>
+                </div>
             </div>
-            <div class="col-md-12 form-group">
-                <textarea asp-for="Message" class="message form-control" placeholder="Your message..."></textarea>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <textarea asp-for="Message" class="message form-control" placeholder="Your message..."></textarea>
+                </div>
             </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary" type="submit" id="submit">Send</button>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-primary" type="submit" id="submit">Send</button>
+                </div>
             </div>
         </div>
     </form>
